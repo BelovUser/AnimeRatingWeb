@@ -11,6 +11,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private Role role = Role.USER;
     private String email;
     private String password;
     @ManyToMany
