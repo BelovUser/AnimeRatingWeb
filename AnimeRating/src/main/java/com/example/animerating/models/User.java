@@ -1,7 +1,6 @@
 package com.example.animerating.models;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.List;
 
 @Entity

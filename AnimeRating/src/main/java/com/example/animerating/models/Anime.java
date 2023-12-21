@@ -1,7 +1,7 @@
 package com.example.animerating.models;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -13,7 +13,6 @@ public class Anime {
     private Long releaseDate;
     private Boolean seen;
     private String synopsis;
-    private Object posterImage;
     private Long episodeCount;
     @ManyToMany(mappedBy = "anime")
     private List<User> users;

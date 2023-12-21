@@ -1,10 +1,14 @@
 package com.example.animerating.services;
 
+import com.example.animerating.kitsuapicalls.KitsuApiCalls;
 import com.example.animerating.models.Anime;
+import com.example.animerating.models.KitsuAnimeResponse;
 import com.example.animerating.repositories.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import retrofit2.Call;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +16,28 @@ import java.util.Optional;
 public class AnimeService {
 
     private final AnimeRepository animeRepository;
+    private final KitsuApiService kitsuApiService;
+    private final KitsuApiCalls kitsuApiCalls;
+
 
     @Autowired
-    public AnimeService(AnimeRepository animeRepository) {
+    public AnimeService(AnimeRepository animeRepository, KitsuApiService kitsuApiService, KitsuApiCalls kitsuApiCalls) {
         this.animeRepository = animeRepository;
+        this.kitsuApiService = kitsuApiService;
+        this.kitsuApiCalls = kitsuApiCalls;
+    }
+
+    public KitsuAnimeResponse getAnimeById(String id) {
+        Call<KitsuAnimeResponse> call = kitsuApiCalls.getAnimeById(id);
+        try {
+            retrofit2.Response<KitsuAnimeResponse> response = call.execute();
+            if (response.isSuccessful()) {
+                return response.body();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Optional<Anime> getById(Long id) {
@@ -23,7 +45,7 @@ public class AnimeService {
     }
 
     public List<Anime> getAll() {
-        return animeRepository.findAll();
+        return (List<Anime>) animeRepository.findAll();
     }
 
     public void save(Anime anime) {
