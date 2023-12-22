@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
@@ -7,6 +7,25 @@
 <body>
 <h1>Rate anime</h1>
 <br>
+<script>
+    const apiUrl = 'https://kitsu.io/api/edge/anime/1';
+
+    const titleElement = document.getElementById('animeTitle');
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            titleElement.textContent = data.title;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
 <div>
     <a href="/random">your account</a>
     <a href="/random">your anime list</a>
@@ -23,11 +42,11 @@
             <th>Description:</th>
         </tr>
         <tr>
-            <td>Random</td>
-            <td>Random</td>
-            <td>Random</td>
-            <td>Random</td>
-            <td>Random</td>
+            <td id="animeTitle">Loading..</td>
+            <td>Loading..</td>
+            <td>Loading..</td>
+            <td>Loading..</td>
+            <td>Loading..</td>
         </tr>
     </table>
 </div>
