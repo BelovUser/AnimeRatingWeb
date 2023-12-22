@@ -7,50 +7,64 @@
 <body>
 <h1>Rate anime</h1>
 <br>
-<script>
-    const apiUrl = 'https://kitsu.io/api/edge/anime/1';
-
-    const titleElement = document.getElementById('animeTitle');
-
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            titleElement.textContent = data.title;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-</script>
 <div>
     <a href="/random">your account</a>
     <a href="/random">your anime list</a>
-    <a href="/random">top rated anime</a>
+    <a href="/random">top-rated anime</a>
 </div>
 <br>
 <div>
-    <table>
-        <tr>
-            <th>Title:</th>
-            <th>Release Date:</th>
-            <th>Genre:</th>
-            <th>Seasons:</th>
-            <th>Description:</th>
-        </tr>
-        <tr>
-            <td id="animeTitle">Loading..</td>
-            <td>Loading..</td>
-            <td>Loading..</td>
-            <td>Loading..</td>
-            <td>Loading..</td>
-        </tr>
-    </table>
+    <div>
+        <h2>Title:</h2>
+        <p id="animeTitle" >Loading..</p>
+    </div>
+    <div>
+        <h2>Release Date:</h2>
+        <p id="releaseDate" >Loading..</p>
+    </div>
+    <div>
+        <h2>Episodes:</h2>
+        <p id="episodes" >Loading..</p>
+    </div>
+    <div>
+        <h2>Description:</h2>
+        <p id="description" >Loading..</p>
+    </div>
+    <div>
+        <img id="posterImage" alt="Poster Image" />
+    </div>
 </div>
 <button>seen</button>
 <button>not seen</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const apiUrl = 'https://kitsu.io/api/edge/anime/1';
+
+        const title = document.getElementById('animeTitle');
+        const releaseDate = document.getElementById('releaseDate');
+        const seasons = document.getElementById('episodes');
+        const description = document.getElementById('description');
+        const posterImg = document.getElementById('posterImage');
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                title.textContent = data.data.attributes.titles.en;
+                releaseDate.textContent = data.data.attributes.startDate;
+                seasons.textContent = data.data.attributes.episodeCount;
+                description.textContent = data.data.attributes.synopsis;
+                posterImg.src = data.data.attributes.posterImage.small;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
 </body>
 </html>
