@@ -58,7 +58,11 @@
             .then(data => {
                 title.textContent = data.data.attributes.titles.en;
                 releaseDate.textContent = data.data.attributes.startDate;
-                seasons.textContent = data.data.attributes.episodeCount;
+                if(data.data.attributes.episodeCount < 2){
+                    seasons.textContent = 'movie';
+                } else {
+                    seasons.textContent = data.data.attributes.episodeCount;
+                }
                 description.textContent = data.data.attributes.synopsis;
                 posterImg.src = data.data.attributes.posterImage.small;
             })
