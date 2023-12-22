@@ -35,12 +35,12 @@ public class AnimeService {
     }
 
 
-    public KitsuAnimeResponse getAnimeById(String id) {
-        Call<KitsuAnimeResponse> call = kitsuApiCalls.getAnimeById(id);
+    public Anime getAnimeById(Long id) {
+        Call<Anime> call = kitsuApiCalls.getAnimeById(id);
         try {
-            retrofit2.Response<KitsuAnimeResponse> response = call.execute();
+            retrofit2.Response<Anime> response = call.execute();
             if (response.isSuccessful()) {
-                return response.body();
+                return call.execute().body();
             }
         } catch (IOException e) {
             e.printStackTrace();

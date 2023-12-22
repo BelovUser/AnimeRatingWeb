@@ -4,6 +4,7 @@ import com.example.animerating.kitsuapicalls.KitsuApiCalls;
 import com.example.animerating.models.KitsuAnimeResponse;
 import com.example.animerating.services.AnimeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,10 @@ public class ApiController {
     }
 
     @GetMapping("/anime/{id}")
-    public KitsuAnimeResponse getAnimeById(@PathVariable String id) {
-        return animeService.getAnimeById(id);
+    public ResponseEntity<?> getAnimeById(@PathVariable Long id) {
+        if(animeService.getAnimeById(id) == null){
+            return ResponseEntity.badRequest().body("The anime was not found :(");
+        }
+        return ResponseEntity.ok(animeService.getAnimeById(id));
     }
 }
