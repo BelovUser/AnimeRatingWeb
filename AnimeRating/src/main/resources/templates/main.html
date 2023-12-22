@@ -39,7 +39,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const apiUrl = 'https://kitsu.io/api/edge/anime/1';
+        const randomId = Math.floor(Math.random() * 100) + 1;
+        const apiUrl = `https://kitsu.io/api/edge/anime/${randomId}`;
 
         const title = document.getElementById('animeTitle');
         const releaseDate = document.getElementById('releaseDate');
