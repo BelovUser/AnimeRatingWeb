@@ -66,7 +66,79 @@ body {
     font-weight: bolder;
 }
 
-h1, h2 {
+button {
+    background-color: #7289da;
+    color: #ffffff;
+    border: none;
+    border-radius: 5rem;
+    padding: 20px 35px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #677bc4;
+}
+
+.hidden {
+    display: none;
+}
+
+.rating {
+    background-color: #2f3136;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.rating-text {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.rating-artstyle,
+.rating-animation,
+.rating-story,
+.rating-characters {
+    background-color: #2f3136;
+    padding: 10px;
+    border-radius: 0.5rem;
+}
+
+.rating-text p {
+    font-size: 3rem;
+    margin: 0;
+    color: rgba(26, 27, 30, 0.53);
+}
+
+.rating-button {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.rating-button button {
+    background-color: #ffffff;
+    color: #7289da;
+    border: none;
+    border-radius: 5rem;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.rating-button button:hover {
+    background-color: #41538c;
+}
+
+h1,
+h2 {
     color: #7289da;
 }
 
@@ -80,20 +152,30 @@ a:hover {
     color: #ffffff;
 }
 
-p, button {
-    color: #ffffff;
-}
-
+p,
 button {
-    background-color: #7289da;
     color: #ffffff;
-    border: none;
-    border-radius: 5rem;
-    padding: 20px 35px;
-    cursor: pointer;
-    margin-right: 10px;
 }
 
-button:hover {
-    background-color: #677bc4;
+.unchecked-rating input {
+    cursor: pointer;
+    appearance: none;
+}
+
+.unchecked-rating input {
+    display: inline-block;
+}
+
+.unchecked-rating input::before {
+    content: "\f005";
+    font-family: "fontAwesome";
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    color: #92a3f1;
+    transition: 0.5s;
+}
+
+.unchecked-rating input:hover ~ input::before,
+.unchecked-rating input:hover::before {
+    color: #2f3136;
 }

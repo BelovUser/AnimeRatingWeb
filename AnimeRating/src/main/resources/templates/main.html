@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Main</title>
     <link rel="stylesheet" href="/Style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 
 <body>
@@ -40,7 +43,78 @@
     </div>
 </div>
 <div class="page-buttons">
-    <button>seen</button>
+    <div class="rating hidden">
+        <div class="rating-text">
+            <div class="rating-artstyle">
+                <h3>Art Style</h3>
+                <p>0/10</p>
+                <div class="unchecked-rating">
+                    <input type="checkbox" name="oneStar">
+                    <input type="checkbox" name="twoStar">
+                    <input type="checkbox" name="threeStar">
+                    <input type="checkbox" name="fourStar">
+                    <input type="checkbox" name="fiveStar">
+                    <input type="checkbox" name="sixStar">
+                    <input type="checkbox" name="sevenStar">
+                    <input type="checkbox" name="eightStar">
+                    <input type="checkbox" name="nineStar">
+                    <input type="checkbox" name="tenStar">
+                </div>
+            </div>
+            <div class="rating-animation">
+                <h3>Animation</h3>
+                <p>0/10</p>
+                <div class="unchecked-rating">
+                    <input type="checkbox" name="oneStar">
+                    <input type="checkbox" name="twoStar">
+                    <input type="checkbox" name="threeStar">
+                    <input type="checkbox" name="fourStar">
+                    <input type="checkbox" name="fiveStar">
+                    <input type="checkbox" name="sixStar">
+                    <input type="checkbox" name="sevenStar">
+                    <input type="checkbox" name="eightStar">
+                    <input type="checkbox" name="nineStar">
+                    <input type="checkbox" name="tenStar">
+                </div>
+            </div>
+            <div class="rating-story">
+                <h3>Story</h3>
+                <p>0/10</p>
+                <div class="unchecked-rating">
+                    <input type="checkbox" name="oneStar">
+                    <input type="checkbox" name="twoStar">
+                    <input type="checkbox" name="threeStar">
+                    <input type="checkbox" name="fourStar">
+                    <input type="checkbox" name="fiveStar">
+                    <input type="checkbox" name="sixStar">
+                    <input type="checkbox" name="sevenStar">
+                    <input type="checkbox" name="eightStar">
+                    <input type="checkbox" name="nineStar">
+                    <input type="checkbox" name="tenStar">
+                </div>
+            </div>
+            <div class="rating-characters">
+                <h3>Characters</h3>
+                <p>0/10</p>
+                <div class="unchecked-rating">
+                    <input type="checkbox" name="oneStar">
+                    <input type="checkbox" name="twoStar">
+                    <input type="checkbox" name="threeStar">
+                    <input type="checkbox" name="fourStar">
+                    <input type="checkbox" name="fiveStar">
+                    <input type="checkbox" name="sixStar">
+                    <input type="checkbox" name="sevenStar">
+                    <input type="checkbox" name="eightStar">
+                    <input type="checkbox" name="nineStar">
+                    <input type="checkbox" name="tenStar">
+                </div>
+            </div>
+        </div>
+        <div class="rating-button">
+            <button>add to watched</button>
+        </div>
+    </div>
+    <button onclick="toggleRating()">seen</button>
     <button>not seen</button>
 </div>
 <script>
@@ -78,6 +152,9 @@
                 console.error('Error:', error);
             });
     });
+    function toggleRating() {
+        document.querySelector(".rating").classList.toggle("hidden");
+    }
 </script>
 </body>
 </html>
