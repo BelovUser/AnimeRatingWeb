@@ -124,7 +124,14 @@ button:hover {
     margin-top: 20px;
 }
 
-.rating-button button {
+.addMenu{
+    background-color: #2f3136;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 0.5rem;
+}
+
+.rating-button button, .addMenu button{
     background-color: #ffffff;
     color: #7289da;
     border: none;
@@ -133,7 +140,7 @@ button:hover {
     cursor: pointer;
 }
 
-.rating-button button:hover {
+.rating-button button:hover, .addMenu button:hover {
     background-color: #41538c;
 }
 

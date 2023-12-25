@@ -114,8 +114,13 @@
             <button>add to watched</button>
         </div>
     </div>
+    <div class="addMenu hidden">
+        <p>Do you want to add the anime to haven't seen list?<br>So you could watch it latter?</p>
+        <button>Yes</button>
+        <button>No</button>
+    </div>
     <button onclick="toggleRating()">seen</button>
-    <button>not seen</button>
+    <button onclick="toggleAddMenu()">not seen</button>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -154,6 +159,9 @@
     });
     function toggleRating() {
         document.querySelector(".rating").classList.toggle("hidden");
+    }
+    function toggleAddMenu() {
+        document.querySelector(".addMenu").classList.toggle("hidden");
     }
 </script>
 </body>
