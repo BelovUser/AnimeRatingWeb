@@ -179,3 +179,6 @@ button {
 .unchecked-rating input:hover::before {
     color: #2f3136;
 }
+.hidden{
+    display: none;
+}
