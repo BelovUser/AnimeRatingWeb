@@ -1,48 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+    <style>
+        body {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto auto auto;
+            grid-gap: 20px;
+            background-color: #36393f;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .page-title {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 1;
+            font-size: 5rem;
+            text-align: center;
+        }
+
+        .page-header {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 2;
+            grid-row-end: 2;
+            text-align: center;
+            background-color: #2f3136;
+            border-radius: 5rem;
+            padding: 20px 35px;
+        }
+
+        .anime-grid {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 3;
+            grid-row-end: 3;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-gap: 20px;
+        }
+
+        .anime-info {
+            background-color: #2f3136;
+            padding: 10px;
+            border-radius: 0.5rem;
+        }
+
+        .anime-grid h2 {
+            margin-bottom: 5px;
+        }
+
+        .anime-poster img {
+            border-radius: 0.5rem;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .page-buttons {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 4;
+            grid-row-end: 4;
+            text-align: center;
+            font-weight: bolder;
+        }
+
+        h1, h2 {
+            color: #7289da;
+        }
+
+        a {
+            color: #7289da;
+            text-decoration: none;
+            padding: 5rem;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+
+        p, button {
+            color: #ffffff;
+        }
+
+        button {
+            background-color: #7289da;
+            color: #ffffff;
+            border: none;
+            border-radius: 5rem;
+            padding: 20px 35px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #677bc4;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Rate anime</h1>
-<br>
-<div>
-    <a href="/random">your account</a>
-    <a href="/random">your anime list</a>
-    <a href="/random">top-rated anime</a>
+<h1 class="page-title">Ani.rate</h1>
+<div class="page-header">
+    <a href="/random"> your account </a>
+    <a href="/random"> your anime list </a>
+    <a href="/random"> top-rated anime </a>
 </div>
-<br>
-<div>
-    <div>
-        <h2>Title:</h2>
-        <p id="animeTitle" >Loading..</p>
+<div class="anime-grid">
+    <div class="anime-info">
+        <div>
+            <h2>Title (EN):</h2>
+            <p id="animeTitleEng">Loading..</p>
+            <h2>Title (JP):</h2>
+            <p id="animeTitleJP">Loading..</p>
+        </div>
+        <div>
+            <h2>Release Date:</h2>
+            <p id="releaseDate">Loading..</p>
+        </div>
+        <div>
+            <h2>Episodes:</h2>
+            <p id="episodes">Loading..</p>
+        </div>
+        <div class="anime-description">
+            <h2>Description:</h2>
+            <p id="description">Loading..</p>
+        </div>
     </div>
-    <div>
-        <h2>Release Date:</h2>
-        <p id="releaseDate" >Loading..</p>
-    </div>
-    <div>
-        <h2>Episodes:</h2>
-        <p id="episodes" >Loading..</p>
-    </div>
-    <div>
-        <h2>Description:</h2>
-        <p id="description" >Loading..</p>
-    </div>
-    <div>
+    <div class="anime-poster">
         <img id="posterImage" alt="Poster Image" />
     </div>
 </div>
-<button>seen</button>
-<button>not seen</button>
-
+<div class="page-buttons">
+    <button>seen</button>
+    <button>not seen</button>
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const randomId = Math.floor(Math.random() * 100) + 1;
         const apiUrl = `https://kitsu.io/api/edge/anime/${randomId}`;
 
-        const title = document.getElementById('animeTitle');
+        const titleEng = document.getElementById('animeTitleEng');
+        const titleJP = document.getElementById('animeTitleJP');
         const releaseDate = document.getElementById('releaseDate');
         const seasons = document.getElementById('episodes');
         const description = document.getElementById('description');
@@ -56,15 +163,16 @@
                 return response.json();
             })
             .then(data => {
-                title.textContent = data.data.attributes.titles.en;
+                titleEng.textContent = data.data.attributes.titles.en;
+                titleJP.textContent = data.data.attributes.titles.ja_jp;
                 releaseDate.textContent = data.data.attributes.startDate;
-                if(data.data.attributes.episodeCount < 2){
+                if (data.data.attributes.episodeCount < 2) {
                     seasons.textContent = 'movie';
                 } else {
                     seasons.textContent = data.data.attributes.episodeCount;
                 }
                 description.textContent = data.data.attributes.synopsis;
-                posterImg.src = data.data.attributes.posterImage.small;
+                posterImg.src = data.data.attributes.posterImage.medium;
             })
             .catch(error => {
                 console.error('Error:', error);
