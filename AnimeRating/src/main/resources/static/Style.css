@@ -189,3 +189,62 @@ button {
 .hidden{
     display: none;
 }
+.userList-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    grid-gap: 20px;
+    background-color: #36393f;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.userList-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+.userList-seenList,
+.userList-watchList{
+    max-width: 700px;
+}
+
+.userList-seenList,
+.userList-watchList,
+.userList-animeData {
+    background-color: #2f3136;
+    border-radius: 0.5rem;
+    padding: 20px;
+}
+.userList-animeData{
+    max-width: 200px;
+    text-align: center;
+    justify-self: center;
+}
+.userList-animeData p {
+    font-size: 1.5rem;
+}
+
+table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #7289da;
+}
+
+td {
+    padding: 10px;
+    text-align: left;
+}
+.userList-icon {
+    font-size: 1.5rem;
+    border: none;
+    padding: 0;
+    margin: 0;
+}

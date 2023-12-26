@@ -12,4 +12,9 @@ public class MainController {
     public String getMainPage(){
         return "main";
     }
+
+    @GetMapping("/user_list")
+    public String getUserListPage(){
+        return "userList";
+    }
 }
