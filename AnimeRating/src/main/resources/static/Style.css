@@ -89,14 +89,9 @@ button:hover {
     max-width: 500px;
     padding: 20px;
     border-radius: 0.5rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
 }
 
 .rating-text {
-    grid-column-start: 1;
-    grid-column-end: 3;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;

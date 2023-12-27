@@ -12,103 +12,68 @@
 
 <body>
 <div th:replace="/headerFragment :: header"></div>
-<div class="anime-grid">
-    <div class="anime-info">
-        <div>
-            <h2>Title (EN):</h2>
-            <p id="animeTitleEng">Loading..</p>
-            <h2>Title (JP):</h2>
-            <p id="animeTitleJP">Loading..</p>
+<form th:action="@{/anime_rate/add_seen}" th:method="POST" id="watchedForm">
+    <div class="anime-grid">
+        <div class="anime-info">
+            <div>
+                <h2>Title (EN):</h2>
+                <p id="animeTitleEng">Loading..</p>
+                <input type="hidden" id="hiddenAnimeTitleEng" name="titleEng"/>
+                <h2>Title (JP):</h2>
+                <p id="animeTitleJP">Loading..</p>
+                <input type="hidden" id="hiddenAnimeTitleJP" name="titleJP"/>
+            </div>
+            <div>
+                <h2>Release Date:</h2>
+                <p id="releaseDate">Loading..</p>
+                <input type="hidden" id="hiddenReleaseDate" name="releaseDate"/>
+            </div>
+            <div>
+                <h2>Episodes:</h2>
+                <p id="episodes">Loading..</p>
+                <input type="hidden" id="hiddenEpisodes" name="episodes"/>
+            </div>
+            <div class="anime-description">
+                <h2>Description:</h2>
+                <p id="description">Loading..</p>
+                <input type="hidden" id="hiddenDescription" name="description"/>
+            </div>
         </div>
-        <div>
-            <h2>Release Date:</h2>
-            <p id="releaseDate">Loading..</p>
-        </div>
-        <div>
-            <h2>Episodes:</h2>
-            <p id="episodes">Loading..</p>
-        </div>
-        <div class="anime-description">
-            <h2>Description:</h2>
-            <p id="description">Loading..</p>
+        <div class="anime-poster">
+            <img id="posterImage" alt="Poster Image"/>
+            <input type="hidden" id="hiddenPosterImage" name="posterImage"/>
         </div>
     </div>
-    <div class="anime-poster">
-        <img id="posterImage" alt="Poster Image" />
-    </div>
-</div>
-<div class="page-buttons">
+    <div class="page-buttons">
     <div class="rating hidden">
         <div class="rating-text">
             <div class="rating-artstyle">
                 <h3>Art Style</h3>
                 <p>0/10</p>
-                <div class="unchecked-rating">
-                    <input type="checkbox" name="oneStar">
-                    <input type="checkbox" name="twoStar">
-                    <input type="checkbox" name="threeStar">
-                    <input type="checkbox" name="fourStar">
-                    <input type="checkbox" name="fiveStar">
-                    <input type="checkbox" name="sixStar">
-                    <input type="checkbox" name="sevenStar">
-                    <input type="checkbox" name="eightStar">
-                    <input type="checkbox" name="nineStar">
-                    <input type="checkbox" name="tenStar">
-                </div>
+                <div th:replace="/rattingStarsFragment :: ratting"></div>
             </div>
             <div class="rating-animation">
                 <h3>Animation</h3>
                 <p>0/10</p>
-                <div class="unchecked-rating">
-                    <input type="checkbox" name="oneStar">
-                    <input type="checkbox" name="twoStar">
-                    <input type="checkbox" name="threeStar">
-                    <input type="checkbox" name="fourStar">
-                    <input type="checkbox" name="fiveStar">
-                    <input type="checkbox" name="sixStar">
-                    <input type="checkbox" name="sevenStar">
-                    <input type="checkbox" name="eightStar">
-                    <input type="checkbox" name="nineStar">
-                    <input type="checkbox" name="tenStar">
-                </div>
+                <div th:replace="/rattingStarsFragment :: ratting"></div>
             </div>
             <div class="rating-story">
                 <h3>Story</h3>
                 <p>0/10</p>
-                <div class="unchecked-rating">
-                    <input type="checkbox" name="oneStar">
-                    <input type="checkbox" name="twoStar">
-                    <input type="checkbox" name="threeStar">
-                    <input type="checkbox" name="fourStar">
-                    <input type="checkbox" name="fiveStar">
-                    <input type="checkbox" name="sixStar">
-                    <input type="checkbox" name="sevenStar">
-                    <input type="checkbox" name="eightStar">
-                    <input type="checkbox" name="nineStar">
-                    <input type="checkbox" name="tenStar">
-                </div>
+                <div th:replace="/rattingStarsFragment :: ratting"></div>
             </div>
             <div class="rating-characters">
                 <h3>Characters</h3>
                 <p>0/10</p>
-                <div class="unchecked-rating">
-                    <input type="checkbox" name="oneStar">
-                    <input type="checkbox" name="twoStar">
-                    <input type="checkbox" name="threeStar">
-                    <input type="checkbox" name="fourStar">
-                    <input type="checkbox" name="fiveStar">
-                    <input type="checkbox" name="sixStar">
-                    <input type="checkbox" name="sevenStar">
-                    <input type="checkbox" name="eightStar">
-                    <input type="checkbox" name="nineStar">
-                    <input type="checkbox" name="tenStar">
-                </div>
+                <div th:replace="/rattingStarsFragment :: ratting"></div>
             </div>
         </div>
         <div class="rating-button">
-            <button>add to watched</button>
+            <button type="submit">add to watched</button>
         </div>
     </div>
+</div>
+</form>
     <div class="addMenu hidden">
         <p>Do you want to add the anime to haven't seen list?<br>So you could watch it latter?</p>
         <button>Yes</button>
@@ -116,7 +81,6 @@
     </div>
     <button onclick="toggleRating()">seen</button>
     <button onclick="toggleAddMenu()">not seen</button>
-</div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const randomId = Math.floor(Math.random() * 100) + 1;
@@ -147,6 +111,13 @@
                 }
                 description.textContent = data.data.attributes.synopsis;
                 posterImg.src = data.data.attributes.posterImage.medium;
+
+                document.getElementById('hiddenAnimeTitleEng').value = titleEng.textContent;
+                document.getElementById('hiddenAnimeTitleJP').value = titleJP.textContent;
+                document.getElementById('hiddenReleaseDate').value = releaseDate.textContent;
+                document.getElementById('hiddenEpisodes').value = seasons.textContent;
+                document.getElementById('hiddenDescription').value = description.textContent;
+                document.getElementById('hiddenPosterImage').value = posterImg.src;
             })
             .catch(error => {
                 console.error('Error:', error);
