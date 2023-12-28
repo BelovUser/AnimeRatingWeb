@@ -244,3 +244,10 @@ td {
     text-align: right;
     padding: 0;
 }
+.background_img{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+}

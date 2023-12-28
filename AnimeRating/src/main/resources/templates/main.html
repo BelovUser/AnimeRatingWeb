@@ -11,6 +11,7 @@
 </head>
 
 <body>
+<img class="background_img" th:src="@{/Background_ani.rate.svg}">
 <div th:replace="/headerFragment :: header"></div>
 <form th:action="@{/anime_rate/add_seen}" th:method="POST" id="watchedForm">
     <div class="anime-grid">
