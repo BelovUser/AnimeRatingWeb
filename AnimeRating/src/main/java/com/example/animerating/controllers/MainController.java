@@ -2,8 +2,10 @@ package com.example.animerating.controllers;
 
 import com.example.animerating.dtos.AnimeData;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -11,12 +13,13 @@ import java.util.Optional;
 public class MainController {
 
     @GetMapping("/")
-    public String getMainPage(){
+    public String getMainPage(Principal principal){
         return "main";
     }
 
     @GetMapping("/user_list")
-    public String getUserListPage(){
+    public String getUserListPage(Principal principal, Model model){
+
         return "userList";
     }
 

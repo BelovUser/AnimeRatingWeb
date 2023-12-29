@@ -27,11 +27,6 @@ public class AuthenticationController {
         return "loginPage";
     }
 
-    @PostMapping("/login")
-    public String login() {
-        return "redirect:/anime_rate/";
-    }
-
     @GetMapping("/register")
     public String showRegisterPage() {
         return "registerPage";

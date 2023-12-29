@@ -21,7 +21,9 @@ public class SecurityConfig {
                         .anyRequest()
                         .authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(form -> form.loginPage("/login").permitAll().defaultSuccessUrl("/anime_rate/"));
+                .formLogin(form -> form.loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/anime_rate/", true));
 
         return http.build();
     }
