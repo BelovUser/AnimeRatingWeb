@@ -2,6 +2,8 @@ package com.example.animerating.models;
 
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,13 +13,24 @@ public class Anime {
     private Long id;
     private String titleEn;
     private String titleJp;
-    private Long releaseDate;
+    private String releaseDate;
     private Boolean seen;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String synopsis;
-    private Long episodeCount;
-    @ManyToMany(mappedBy = "anime")
-    private List<User> users;
+    private String episodeCount;
+    private String posterUrl;
 
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
+    }
+
+    @ManyToMany(mappedBy = "anime")
+    private List<User> users = new ArrayList<>();
     public Long getId() {
         return id;
     }
@@ -42,11 +55,11 @@ public class Anime {
         this.titleJp = titleJp;
     }
 
-    public Long getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Long releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -66,11 +79,11 @@ public class Anime {
         this.synopsis = synopsis;
     }
 
-    public Long getEpisodeCount() {
+    public String getEpisodeCount() {
         return episodeCount;
     }
 
-    public void setEpisodeCount(Long episodeCount) {
+    public void setEpisodeCount(String episodeCount) {
         this.episodeCount = episodeCount;
     }
 

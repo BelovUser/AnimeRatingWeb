@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
             return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
         }
     }
-    public Optional<User> findByName(String name) {
+    public Optional<User> findByUsername(String name) {
         return userRepository.findByUsername(name);
     }
 

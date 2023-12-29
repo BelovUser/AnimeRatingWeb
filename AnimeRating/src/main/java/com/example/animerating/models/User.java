@@ -1,6 +1,8 @@
 package com.example.animerating.models;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +14,7 @@ public class User {
     private String username;
     private String password;
     @ManyToMany
-    private List<Anime> anime;
+    private List<Anime> anime =new ArrayList<>();
 
     public Long getId() {
         return id;

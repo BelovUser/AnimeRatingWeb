@@ -34,7 +34,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String register(RegisterDTO registerDTO, RedirectAttributes ra) {
-        Optional<User> temp = userService.findByName(registerDTO.username());
+        Optional<User> temp = userService.findByUsername(registerDTO.username());
 
         if(temp.isPresent()) {
             ra.addAttribute("userExists", true);

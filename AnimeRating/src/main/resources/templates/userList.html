@@ -20,9 +20,9 @@
                 <th></th>
                 <th></th>
             </tr>
-            <tr>
-                <td>Name</td>
-                <td>Rating</td>
+            <tr th:each="anime : ${seenAnime}">
+                <td th:text="${anime.getTitleEn()}">Name</td>
+                <td th:text="'episodes: '+ ${anime.getEpisodeCount()}">Rating</td>
                 <td class="userList-icon">
                     <a href="/edit"><i class="fa-sharp fa-regular fa-pen-to-square"></i></a>
                 </td>
