@@ -1,5 +1,6 @@
 package com.example.animerating.controllers;
 
+import com.example.animerating.dtos.AnimeDataDTO;
 import com.example.animerating.models.Anime;
 import com.example.animerating.models.User;
 import com.example.animerating.services.AnimeService;
@@ -39,38 +40,9 @@ public class MainController {
     }
 
     @PostMapping("/add_seen")
-    public String addToWatched(@RequestParam("titleEng") String titleEng,
-                               @RequestParam("titleJP") String titleJP,
-                               @RequestParam("releaseDate") String releaseDate,
-                               @RequestParam("episodes") String episodes,
-                               @RequestParam("description") String description,
-                               @RequestParam("posterImage") String posterImage,
-                               Principal principal) {
+    public String addToWatched(AnimeDataDTO animeDataDTO, Principal principal) {
         User user = getUser(principal);
-
-        Anime anime = new Anime();
-        anime.setTitleEn(titleEng);
-        anime.setTitleJp(titleJP);
-        anime.setReleaseDate(releaseDate);
-        anime.setEpisodeCount(episodes);
-        anime.setSynopsis(description);
-        anime.setPosterUrl(posterImage);
-        anime.setSeen(true);
-        anime.getUsers().add(user);
-
-        animeService.save(anime);
-
-        user.getAnime().add(anime);
-        userService.save(user);
-
-
-//        System.out.println("Received data:");
-//        System.out.println("Title (EN): " + titleEng);
-//        System.out.println("Title (JP): " + titleJP);
-//        System.out.println("Release Date: " + releaseDate);
-//        System.out.println("Episodes: " + episodes);
-//        System.out.println("Description: " + description);
-//        System.out.println("Poster Image: " + posterImage);
+        animeService.saveAnimeToUser(animeDataDTO,user);
 
         return "redirect:/anime_rate/";
     }

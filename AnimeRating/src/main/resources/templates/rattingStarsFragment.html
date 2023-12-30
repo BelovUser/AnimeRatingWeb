@@ -7,16 +7,18 @@
 <body>
 <div th:fragment="ratting">
     <div class="unchecked-rating">
-        <input type="checkbox" name="oneStar" value="1">
-        <input type="checkbox" name="twoStar" value="2">
-        <input type="checkbox" name="threeStar" value="3">
-        <input type="checkbox" name="fourStar" value="4">
-        <input type="checkbox" name="fiveStar" value="5">
-        <input type="checkbox" name="sixStar" value="6">
-        <input type="checkbox" name="sevenStar" value="7">
-        <input type="checkbox" name="eightStar" value="8">
-        <input type="checkbox" name="nineStar" value="9">
-        <input type="checkbox" name="tenStar" value="10">
+        <form th:action="@{/anime_rate/add_seen}" th:method="POST">
+            <input type="checkbox" name="characterRatting" value="1">
+            <input type="checkbox" name="characterRatting" value="2">
+            <input type="checkbox" name="characterRatting" value="3">
+            <input type="checkbox" name="characterRatting" value="4">
+            <input type="checkbox" name="characterRatting" value="5">
+            <input type="checkbox" name="characterRatting" value="6">
+            <input type="checkbox" name="characterRatting" value="7">
+            <input type="checkbox" name="characterRatting" value="8">
+            <input type="checkbox" name="characterRatting" value="9">
+            <input type="checkbox" name="characterRatting" value="10">
+        </form>
     </div>
 </div>
 </body>

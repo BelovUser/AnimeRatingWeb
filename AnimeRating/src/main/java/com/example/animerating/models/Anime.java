@@ -4,7 +4,9 @@ package com.example.animerating.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Anime {
@@ -20,6 +22,64 @@ public class Anime {
     private String synopsis;
     private String episodeCount;
     private String posterUrl;
+    private Integer artStyleRatting;
+    private Integer animationRatting;
+    private Integer charactersRatting;
+    private Integer storyRatting;
+    private Double averageRatting;
+
+    public Double getAverageRatting() {
+        List<Integer> animeRattings = Arrays.asList(
+                Objects.requireNonNullElse(animationRatting, 0),
+                Objects.requireNonNullElse(artStyleRatting, 0),
+                Objects.requireNonNullElse(storyRatting, 0),
+                Objects.requireNonNullElse(charactersRatting, 0)
+        );
+
+        System.out.println("Ratings: " + animeRattings);
+
+
+        return animeRattings.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(Double.NaN);
+    }
+
+    public void setAverageRatting(Double averageRatting) {
+        this.averageRatting = averageRatting;
+    }
+
+    public Integer getArtStyleRatting() {
+        return artStyleRatting;
+    }
+
+    public void setArtStyleRatting(Integer artStyleRatting) {
+        this.artStyleRatting = artStyleRatting;
+    }
+
+    public Integer getAnimationRatting() {
+        return animationRatting;
+    }
+
+    public void setAnimationRatting(Integer animationRatting) {
+        this.animationRatting = animationRatting;
+    }
+
+    public Integer getCharactersRatting() {
+        return charactersRatting;
+    }
+
+    public void setCharactersRatting(Integer charactersRatting) {
+        this.charactersRatting = charactersRatting;
+    }
+
+    public Integer getStoryRatting() {
+        return storyRatting;
+    }
+
+    public void setStoryRatting(Integer storyRatting) {
+        this.storyRatting = storyRatting;
+    }
 
     public String getPosterUrl() {
         return posterUrl;
@@ -40,6 +100,9 @@ public class Anime {
     }
 
     public String getTitleEn() {
+        if(titleEn.isEmpty()){
+            return titleJp;
+        }
         return titleEn;
     }
 

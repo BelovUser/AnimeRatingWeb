@@ -46,40 +46,76 @@
         </div>
     </div>
     <div class="page-buttons">
-    <div class="rating hidden">
-        <div class="rating-text">
-            <div class="rating-artstyle">
-                <h3>Art Style</h3>
-                <p>0/10</p>
-                <div th:replace="/rattingStarsFragment :: ratting"></div>
+        <div class="rating hidden">
+            <div class="rating-text">
+                <div class="rating-artstyle">
+                    <h3>Art Style</h3>
+                    <p>0/10</p>
+                    <input type="radio" name="artStyleRatting" value="1">
+                    <input type="radio" name="artStyleRatting" value="2">
+                    <input type="radio" name="artStyleRatting" value="3">
+                    <input type="radio" name="artStyleRatting" value="4">
+                    <input type="radio" name="artStyleRatting" value="5">
+                    <input type="radio" name="artStyleRatting" value="6">
+                    <input type="radio" name="artStyleRatting" value="7">
+                    <input type="radio" name="artStyleRatting" value="8">
+                    <input type="radio" name="artStyleRatting" value="9">
+                    <input type="radio" name="artStyleRatting" value="10">
+                </div>
+                <div class="rating-animation">
+                    <h3>Animation</h3>
+                    <p>0/10</p>
+                    <input type="radio" name="animationRatting" value="1">
+                    <input type="radio" name="animationRatting" value="2">
+                    <input type="radio" name="animationRatting" value="3">
+                    <input type="radio" name="animationRatting" value="4">
+                    <input type="radio" name="animationRatting" value="5">
+                    <input type="radio" name="animationRatting" value="6">
+                    <input type="radio" name="animationRatting" value="7">
+                    <input type="radio" name="animationRatting" value="8">
+                    <input type="radio" name="animationRatting" value="9">
+                    <input type="radio" name="animationRatting" value="10">
+                </div>
+                <div class="rating-story">
+                    <h3>Story</h3>
+                    <p>0/10</p>
+                    <input type="radio" name="storyRatting" value="1">
+                    <input type="radio" name="storyRatting" value="2">
+                    <input type="radio" name="storyRatting" value="3">
+                    <input type="radio" name="storyRatting" value="4">
+                    <input type="radio" name="storyRatting" value="5">
+                    <input type="radio" name="storyRatting" value="6">
+                    <input type="radio" name="storyRatting" value="7">
+                    <input type="radio" name="storyRatting" value="8">
+                    <input type="radio" name="storyRatting" value="9">
+                    <input type="radio" name="storyRatting" value="10">
+                </div>
+                <div class="rating-characters">
+                    <h3>Characters</h3>
+                    <p>0/10</p>
+                    <input type="radio" name="charactersRatting" value="1">
+                    <input type="radio" name="charactersRatting" value="2">
+                    <input type="radio" name="charactersRatting" value="3">
+                    <input type="radio" name="charactersRatting" value="4">
+                    <input type="radio" name="charactersRatting" value="5">
+                    <input type="radio" name="charactersRatting" value="6">
+                    <input type="radio" name="charactersRatting" value="7">
+                    <input type="radio" name="charactersRatting" value="8">
+                    <input type="radio" name="charactersRatting" value="9">
+                    <input type="radio" name="charactersRatting" value="10">
+                </div>
             </div>
-            <div class="rating-animation">
-                <h3>Animation</h3>
-                <p>0/10</p>
-                <div th:replace="/rattingStarsFragment :: ratting"></div>
+            <div class="rating-button">
+                <button type="submit">add to watched</button>
             </div>
-            <div class="rating-story">
-                <h3>Story</h3>
-                <p>0/10</p>
-                <div th:replace="/rattingStarsFragment :: ratting"></div>
-            </div>
-            <div class="rating-characters">
-                <h3>Characters</h3>
-                <p>0/10</p>
-                <div th:replace="/rattingStarsFragment :: ratting"></div>
-            </div>
-        </div>
-        <div class="rating-button">
-            <button type="submit">add to watched</button>
         </div>
     </div>
-</div>
 </form>
-    <div class="addMenu hidden">
-        <p>Do you want to add the anime to haven't seen list?<br>So you could watch it latter?</p>
-        <button>Yes</button>
-        <button>No</button>
-    </div>
+<div class="addMenu hidden">
+    <p>Do you want to add the anime to haven't seen list?<br>So you could watch it later?</p>
+    <button>Yes</button>
+    <button>No</button>
+</div>
 <div class="anime-buttons">
     <button onclick="toggleRating()">seen</button>
     <button onclick="toggleAddMenu()">not seen</button>

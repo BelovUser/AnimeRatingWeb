@@ -10,7 +10,6 @@
 </head>
 <body class="userList-body">
 <div th:replace="/headerFragment :: header"></div>
-</body>
 <img class="background_img" th:src="@{/Background_ani.rate.svg}">
 <div class="userList-container">
     <div class="userList-seenList">
@@ -22,7 +21,7 @@
             </tr>
             <tr th:each="anime : ${seenAnime}">
                 <td th:text="${anime.getTitleEn()}">Name</td>
-                <td th:text="'episodes: '+ ${anime.getEpisodeCount()}">Rating</td>
+                <td th:text="${anime.getAverageRatting()} + '/10'">Rating</td>
                 <td class="userList-icon">
                     <a href="/edit"><i class="fa-sharp fa-regular fa-pen-to-square"></i></a>
                 </td>
@@ -54,4 +53,5 @@
         <p>Anime name</p>
     </div>
 </div>
+</body>
 </html>
