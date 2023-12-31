@@ -7,6 +7,7 @@ import com.example.animerating.repositories.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,8 @@ public class AnimeService {
         animeRepository.save(anime);
     }
 
-    public void saveAnimeToUser(AnimeDataDTO animeDataDTO, User user){
+    public void saveAnimeToUser(AnimeDataDTO animeDataDTO, User user,
+                                Optional<String> addToSeen, Optional<String> dontAddToList) {
         Anime anime = new Anime();
         anime.setTitleEn(animeDataDTO.titleEng());
         anime.setTitleJp(animeDataDTO.titleJP());
@@ -49,7 +51,12 @@ public class AnimeService {
         anime.setArtStyleRatting(animeDataDTO.getArtStyleRatingAsInt());
         anime.setCharactersRatting(animeDataDTO.getCharactersRatingAsInt());
         anime.setStoryRatting(animeDataDTO.getStoryRatingAsInt());
-        anime.setSeen(true);
+
+        if(addToSeen.isEmpty()){
+            anime.setSeen(true);
+        } else {
+            anime.setSeen(false);
+        }
         anime.getUsers().add(user);
 
         animeRepository.save(anime);
@@ -58,17 +65,37 @@ public class AnimeService {
         userService.save(user);
     }
 
-    public Integer getAllEpisodesSum(){
+    public Integer getAllEpisodesSum() {
         return animeRepository.findAll().stream()
                 .mapToInt(a -> Integer.parseInt(a.getEpisodeCount()))
                 .sum();
     }
 
-    public List<Anime> getTopTenAnime(){
-        return animeRepository.findAllTop10OrderByAverageRatting();
+    public List<Anime> getTopTenAnime() {
+        return animeRepository.findTop10ByOrderByAverageRattingDesc();
     }
 
-    public Anime getFavoriteAnime(){
-        return animeRepository.findTopByAverageRatting().get();
+    public Anime getFavoriteAnime() {
+        Anime anime = animeRepository.findTopByOrderByAverageRattingDesc().get();
+        return anime;
+    }
+
+    public List<Anime> getSeenAnime(User user) {
+        return user.getAnime().stream()
+                .filter(Anime::getSeen)
+                .toList();
+    }
+
+    public List<Anime> getNotSeenAnime(User user) {
+        return user.getAnime().stream()
+                .filter(a -> !a.getSeen())
+                .toList();
+    }
+
+    public Anime getByJpTitle(String titleJp){
+        if(animeRepository.findByTitleJp(titleJp).isEmpty()){
+            throw new RuntimeException("Could not found an Anime with" + titleJp + " title.");
+        }
+        return animeRepository.findByTitleJp(titleJp).get();
     }
 }

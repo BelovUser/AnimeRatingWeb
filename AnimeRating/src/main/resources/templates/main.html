@@ -105,17 +105,18 @@
                     <input type="radio" name="charactersRatting" value="10">
                 </div>
             </div>
+            <input type="hidden" id="seenAnimeInput" name="seenAnime" value="false">
             <div class="rating-button">
-                <button type="submit">add to watched</button>
+                <button type="submit" onclick="setSeenAnimeValue(true)" >add to watched</button>
             </div>
         </div>
     </div>
-</form>
-<div class="addMenu hidden">
+    <div class="addMenu hidden">
     <p>Do you want to add the anime to haven't seen list?<br>So you could watch it later?</p>
-    <button>Yes</button>
+    <button type="submit"  onclick="setSeenAnimeValue(flase)" >Yes</button>
     <button>No</button>
 </div>
+</form>
 <div class="anime-buttons">
     <button onclick="toggleRating()">seen</button>
     <button onclick="toggleAddMenu()">not seen</button>
@@ -143,11 +144,7 @@
                 titleEng.textContent = data.data.attributes.titles.en;
                 titleJP.textContent = data.data.attributes.titles.ja_jp;
                 releaseDate.textContent = data.data.attributes.startDate;
-                if (data.data.attributes.episodeCount < 2) {
-                    seasons.textContent = 'movie';
-                } else {
-                    seasons.textContent = data.data.attributes.episodeCount;
-                }
+                seasons.textContent = data.data.attributes.episodeCount;
                 description.textContent = data.data.attributes.synopsis;
                 posterImg.src = data.data.attributes.posterImage.medium;
 
@@ -167,6 +164,10 @@
     }
     function toggleAddMenu() {
         document.querySelector(".addMenu").classList.toggle("hidden");
+    }
+    function setSeenAnimeValue(value) {
+        document.getElementById('seenAnimeInput').value = value.toString();
+        document.getElementById('watchedForm').submit();
     }
 </script>
 </body>

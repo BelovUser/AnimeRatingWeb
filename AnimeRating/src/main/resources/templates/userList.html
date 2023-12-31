@@ -20,13 +20,14 @@
                 <th></th>
             </tr>
             <tr th:each="anime : ${seenAnime}">
-                <td th:text="${anime.getTitleEn()}">Name</td>
-                <td th:text="${anime.getAverageRatting()} + '/10'">Rating</td>
+                <td th:text="${anime.getTitleEn()}">Loading..</td>
+                <td th:text="${anime.getAverageRatting()} + '/10'">Loading..</td>
                 <td class="userList-icon">
                     <a href="/edit"><i class="fa-sharp fa-regular fa-pen-to-square"></i></a>
                 </td>
             </tr>
         </table>
+        <p th:if="${seenAnime.isEmpty()}">Your list is empty..</p>
     </div>
     <div class="userList-watchList">
         <h2>Watch List</h2>
@@ -35,9 +36,8 @@
                 <th></th>
                 <th></th>
             </tr>
-            <tr>
-                <td>Name</td>
-                <td>Episodes</td>
+            <tr th:each="anime : ${notSeenAnime}">
+                <td th:text="${anime.getTitleEn()}">Loading..</td>
                 <td class="userList-icon">
                     <a href="/seen"><i class="fa-sharp fa-solid fa-eye"></i></a>
                 </td>
@@ -48,9 +48,9 @@
         <h2>Seen Anime</h2>
         <p th:text="${seenAnime.size()}">0</p>
         <h2>Seen Episodes</h2>
-        <p>0</p>
+        <p th:text="${episodesSeen}">0</p>
         <h2>Favorite Anime</h2>
-        <p>Anime name</p>
+        <p th:text="${favoriteAnime.getTitleEn()}">anime title</p>
     </div>
 </div>
 </body>

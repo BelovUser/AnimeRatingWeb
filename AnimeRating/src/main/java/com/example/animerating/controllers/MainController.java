@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/anime_rate")
@@ -32,17 +33,25 @@ public class MainController {
 
     @GetMapping("/user_list")
     public String getUserListPage(Principal principal, Model model){
-        List<Anime> seenAnime = getUser(principal).getAnime().stream()
-                .filter(Anime::getSeen)
-                .toList();
+        User user = getUser(principal);
+        List<Anime> seenAnime = animeService.getSeenAnime(user);
+        List<Anime> notSeenAnime = animeService.getNotSeenAnime(user);
+        Integer EpisodesSeen = animeService.getAllEpisodesSum();
+        Anime favoriteAnime = animeService.getFavoriteAnime();
+
         model.addAttribute("seenAnime",seenAnime);
+        model.addAttribute("notSeenAnime",notSeenAnime);
+        model.addAttribute("episodesSeen", EpisodesSeen);
+        model.addAttribute("favoriteAnime",favoriteAnime);
+
         return "userList";
     }
 
     @PostMapping("/add_seen")
-    public String addToWatched(AnimeDataDTO animeDataDTO, Principal principal) {
+    public String addToWatched(@RequestParam Optional<String> seenAnime,@RequestParam Optional<String> dontAddToList,
+                               AnimeDataDTO animeDataDTO, Principal principal) {
         User user = getUser(principal);
-        animeService.saveAnimeToUser(animeDataDTO,user);
+        animeService.saveAnimeToUser(animeDataDTO,user,seenAnime,dontAddToList);
 
         return "redirect:/anime_rate/";
     }
