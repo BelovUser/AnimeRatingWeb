@@ -57,4 +57,18 @@ public class AnimeService {
         user.getAnime().add(anime);
         userService.save(user);
     }
+
+    public Integer getAllEpisodesSum(){
+        return animeRepository.findAll().stream()
+                .mapToInt(a -> Integer.parseInt(a.getEpisodeCount()))
+                .sum();
+    }
+
+    public List<Anime> getTopTenAnime(){
+        return animeRepository.findAllTop10OrderByAverageRatting();
+    }
+
+    public Anime getFavoriteAnime(){
+        return animeRepository.findTopByAverageRatting().get();
+    }
 }
