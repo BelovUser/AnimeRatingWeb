@@ -52,7 +52,7 @@ public class AnimeService {
         anime.setCharactersRatting(animeDataDTO.getCharactersRatingAsInt());
         anime.setStoryRatting(animeDataDTO.getStoryRatingAsInt());
 
-        if(addToSeen.isEmpty()){
+        if(addToSeen.get().equals("true")){
             anime.setSeen(true);
         } else {
             anime.setSeen(false);

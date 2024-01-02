@@ -11,7 +11,6 @@
 </head>
 
 <body>
-<img class="background_img" th:src="@{/Background_ani.rate.svg}">
 <div th:replace="/headerFragment :: header"></div>
 <form th:action="@{/anime_rate/add_seen}" th:method="POST" id="watchedForm">
     <div class="anime-grid">
@@ -105,17 +104,21 @@
                     <input type="radio" name="charactersRatting" value="10">
                 </div>
             </div>
-            <input type="hidden" id="seenAnimeInput" name="seenAnime" value="false">
             <div class="rating-button">
                 <button type="submit" onclick="setSeenAnimeValue(true)" >add to watched</button>
             </div>
         </div>
     </div>
     <div class="addMenu hidden">
-    <p>Do you want to add the anime to haven't seen list?<br>So you could watch it later?</p>
-    <button type="submit"  onclick="setSeenAnimeValue(flase)" >Yes</button>
-    <button>No</button>
-</div>
+        <input type="hidden" id="seenAnimeInput" name="seenAnime" value=" ">
+        <p>
+            Do you want to add the anime to haven't seen list?
+            <br>
+            So you could watch it later?
+        </p>
+        <button type="submit" onclick="setSeenAnimeValue(false)">Yes</button>
+        <button type="submit">No</button>
+    </div>
 </form>
 <div class="anime-buttons">
     <button onclick="toggleRating()">seen</button>

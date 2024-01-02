@@ -56,6 +56,13 @@ public class MainController {
         return "redirect:/anime_rate/";
     }
 
+    @GetMapping("/top_rated")
+    public String getTopRatedPage(Model model, Principal principal){
+        List<Anime> topAnime = animeService.getTopTenAnime();
+        model.addAttribute("topAnime", topAnime);
+        return "topRatedAnime";
+    }
+
     private User getUser(Principal principal) {
         return userService.findByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + principal.getName()));

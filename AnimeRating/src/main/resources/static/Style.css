@@ -4,6 +4,9 @@ body {
     grid-template-rows: auto auto auto auto;
     grid-gap: 20px;
     background-color: #36393f;
+    background-image: url("AniRate_Background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
     color: #ffffff;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -75,6 +78,7 @@ body {
 .anime-poster img {
     border-radius: 0.5rem;
     max-width: 100%;
+    margin-left: 85px;
     height: auto;
 }
 
@@ -282,10 +286,70 @@ td {
     padding: 1rem;
 }
 
-.background_img {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    opacity: 0.1;
+.loginPage, .registerPage {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginPage form input,
+.registerPage form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #c5c5c5;
+    color: #2f3136;
+    margin-top: 10px;
+}
+
+.loginPage form input:focus,
+.registerPage form input:focus{
+    color: white;
+    border: none;
+    background-color: rgba(37, 37, 37, 0.36);
+}
+.registerPage form button{
+    margin-top: 20px;
+}
+
+.loginPage form button,
+.registerPage form button{
+    background-color: #7289da;
+    color: #ffffff;
+    border: none;
+    border-radius: 5rem;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.loginPage form button:hover,
+.loginPage form button:hover{
+    background-color: #41538c;
+}
+
+.loginPage a {
+    color: #7289da;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.loginPage a:hover {
+    color: #ffffff;
+}
+.errorMessage{
+    margin-top: 20px;
+    color: #d25e54;
+    font-weight: bolder;
+}
+.topRated {
+    display: flex;
 }
