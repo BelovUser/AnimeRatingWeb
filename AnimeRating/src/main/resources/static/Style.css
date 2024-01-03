@@ -19,7 +19,7 @@ body {
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 1;
-    max-width: 500px;
+    max-width: 300px;
 }
 
 .page-header {
