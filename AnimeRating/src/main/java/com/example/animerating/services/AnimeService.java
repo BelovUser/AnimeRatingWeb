@@ -72,7 +72,7 @@ public class AnimeService {
     }
 
     public List<Anime> getTopTenAnime() {
-        return animeRepository.findTop10ByOrderByAverageRattingDesc();
+        return animeRepository.findTop6ByOrderByAverageRattingDesc();
     }
 
     public Anime getFavoriteAnime() {

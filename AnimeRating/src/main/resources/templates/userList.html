@@ -28,6 +28,22 @@
         </table>
         <p th:if="${seenAnime.isEmpty()}">Your list is empty..</p>
     </div>
+    <div class="userList-currentlyWatching">
+        <h2>Currently Watching</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Loading..</td>
+                <td>Loading..</td>
+                <td class="userList-icon">
+                    <a href="/seen"><i class="fa-sharp fa-solid fa-star"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div class="userList-watchList">
         <h2>Watch List</h2>
         <table>
@@ -42,14 +58,6 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <div class="userList-animeData">
-        <h2>Seen Anime</h2>
-        <p th:text="${seenAnime.size()}">0</p>
-        <h2>Seen Episodes</h2>
-        <p th:text="${episodesSeen}">0</p>
-        <h2>Favorite Anime</h2>
-        <p th:text="${favoriteAnime.getTitleEn()}">anime title</p>
     </div>
 </div>
 </body>

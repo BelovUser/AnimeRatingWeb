@@ -4,7 +4,7 @@ body {
     grid-template-rows: auto auto auto auto;
     grid-gap: 20px;
     background-color: #36393f;
-    background-image: url("AniRate_Background.svg");
+    background-image: url("AniRate_background.svg");
     background-repeat: no-repeat;
     background-size: cover;
     color: #ffffff;
@@ -138,16 +138,24 @@ button:hover {
 }
 
 .addMenu {
-    background-color: #2f3136;
+    position: absolute;
+    z-index: 1;
+    top: 500px;
+    left: 580px;
+    background-color: #c5c5c5;
     max-width: 400px;
     padding: 20px;
     border-radius: 0.5rem;
 }
 
+.addMenu p{
+    color: #36393f;
+}
+
 .rating-button button,
 .addMenu button {
-    background-color: #ffffff;
-    color: #7289da;
+    background-color: #7289da;
+    color: #ffffff;
     border: none;
     border-radius: 5rem;
     padding: 10px 20px;
@@ -204,6 +212,52 @@ button {
 .hidden {
     display: none;
 }
+.topRated {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px;
+    margin-left: 85px;
+}
+
+.topAnimeItem {
+    position: relative;
+}
+
+.topAnimeItem img {
+    border-radius: 20px;
+    height: auto;
+    transition: opacity 0.3s ease;
+    max-width: 200px;
+}
+
+.topAnimeItem:hover img{
+    background: black;
+    opacity: 0.7;
+}
+
+.topAnimeItem:hover::before {
+    opacity: 1;
+}
+
+.topAnimeItem h2 {
+    font-size: 1.5rem;
+    position: absolute;
+    z-index: 2;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    top: 50%;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+
+.topAnimeItem:hover h2 {
+    opacity: 1;
+}
+
+
 
 .userList-body {
     display: grid;
@@ -225,26 +279,25 @@ button {
 }
 
 .userList-seenList,
-.userList-watchList {
+.userList-watchList,
+.userList-currentlyWatching{
     max-width: 700px;
 }
 
 .userList-seenList,
 .userList-watchList,
-.userList-animeData {
+.userList-currentlyWatching {
     background-color: #2f3136;
     border-radius: 0.5rem;
     padding: 20px;
 }
 
-.userList-animeData {
-    max-width: 200px;
-    text-align: center;
-    justify-self: center;
+.userList-currentlyWatching{
+    background-color: #c5c5c5;
 }
 
-.userList-animeData p {
-    font-size: 1.5rem;
+.userList-currentlyWatching td{
+    color: #36393f;
 }
 
 table {

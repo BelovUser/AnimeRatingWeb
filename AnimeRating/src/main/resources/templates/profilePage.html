@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+</head>
+<body>
+<div class="userList-animeData">
+    <h2>Seen Anime</h2>
+    <p th:text="${seenAnime.size()}">0</p>
+    <h2>Seen Episodes</h2>
+    <p th:text="${episodesSeen}">0</p>
+    <h2>Favorite Anime</h2>
+    <p th:text="${favoriteAnime.getTitleEn()}">anime title</p>
+</div>
+</body>
+</html>
