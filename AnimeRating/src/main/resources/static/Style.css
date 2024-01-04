@@ -101,6 +101,7 @@ button:hover {
 }
 
 .rating {
+    transition: 0.3s;
     background-color: #2f3136;
     padding: 20px;
     border-radius: 0.5rem;
@@ -108,11 +109,36 @@ button:hover {
 }
 
 .rating-text {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: inline-flex;
+    align-items: center;
     grid-gap: 20px;
     font-weight: bold;
     text-align: center;
+    margin-left: 100px;
+}
+
+.rating-stars {
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+}
+
+.rating-stars input {
+    display: none;
+}
+
+.rating-stars label {
+    color: #677bc4;
+    cursor: pointer;
+}
+
+.rating-stars label:hover,
+.rating-stars input:checked + label {
+    color: #ffffff;
+}
+
+.rating-title,.rating-stars{
+    display: inline-flex;
 }
 
 .rating-artstyle,
@@ -124,11 +150,6 @@ button:hover {
     border-radius: 0.5rem;
 }
 
-.rating-text p {
-    font-size: 3rem;
-    margin: 0;
-    color: rgba(26, 27, 30, 0.53);
-}
 
 .rating-button {
     grid-column-start: 1;
@@ -186,29 +207,6 @@ button {
     color: #ffffff;
 }
 
-.unchecked-rating input {
-    cursor: pointer;
-    appearance: none;
-}
-
-.unchecked-rating input {
-    display: inline-block;
-}
-
-.unchecked-rating input::before {
-    content: "\f005";
-    font-family: "fontAwesome";
-    font-size: 1.3rem;
-    margin-left: 0.5rem;
-    color: #92a3f1;
-    transition: 0.5s;
-}
-
-.unchecked-rating input:hover ~ input::before,
-.unchecked-rating input:hover::before {
-    color: #2f3136;
-}
-
 .hidden {
     display: none;
 }
@@ -259,7 +257,7 @@ button {
 
 
 
-.userList-body {
+.userList-body,.profile-body {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto;
@@ -271,8 +269,11 @@ button {
     padding: 20px;
     box-sizing: border-box;
 }
+.main_refreshIcon{
+    font-size: 2rem;
+}
 
-.userList-container {
+.userList-container,.profile-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
@@ -405,4 +406,7 @@ td {
 }
 .topRated {
     display: flex;
+}
+.anime-buttons{
+    cursor: pointer;
 }

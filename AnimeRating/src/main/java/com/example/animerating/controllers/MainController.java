@@ -56,6 +56,14 @@ public class MainController {
         return "redirect:/anime_rate/";
     }
 
+    @GetMapping("/profile")
+            public String getProfilePage(Principal principal,Model model){
+            model.addAttribute("user",getUser(principal));
+            model.addAttribute("anime",animeService.getSeenAnime(getUser(principal)));
+            model.addAttribute("favoriteAnime",animeService.getFavoriteAnime());
+        return "profilePage";
+    }
+
     @GetMapping("/top_rated")
     public String getTopRatedPage(Model model, Principal principal){
         List<Anime> topAnime = animeService.getTopTenAnime();
