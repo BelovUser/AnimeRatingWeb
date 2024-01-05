@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface AnimeRepository extends ListCrudRepository<Anime,Long> {
     List<Anime> findTop6ByOrderByAverageRattingDesc();
-    Optional<Anime> findTopByOrderByAverageRattingDesc();
+    Optional<Anime> findAllByOrderByAverageRattingDesc();
     Optional<Anime> findByTitleJp(String titleJp);
 }

@@ -147,7 +147,8 @@ button:hover {
 .rating-characters {
     background-color: #2f3136;
     padding: 10px;
-    border-radius: 0.5rem;
+    border: 1px solid #42464d;
+    border-radius: 5px;
 }
 
 
@@ -259,8 +260,8 @@ button {
 
 .userList-body,.profile-body {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 2fr;
+    grid-template-rows: auto auto;
     grid-gap: 20px;
     background-color: #36393f;
     color: #ffffff;

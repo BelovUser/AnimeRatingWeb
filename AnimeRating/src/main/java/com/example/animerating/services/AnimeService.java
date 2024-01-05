@@ -72,12 +72,15 @@ public class AnimeService {
     }
 
     public List<Anime> getTopTenAnime() {
-        return animeRepository.findTop6ByOrderByAverageRattingDesc();
+        return animeRepository.findTop6ByOrderByAverageRattingDesc().stream()
+                .filter(Anime::getSeen).toList();
     }
 
     public Anime getFavoriteAnime() {
-        Anime anime = animeRepository.findTopByOrderByAverageRattingDesc().get();
-        return anime;
+        return animeRepository.findAllByOrderByAverageRattingDesc().stream()
+                .filter(Anime::getSeen)
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Anime> getSeenAnime(User user) {
