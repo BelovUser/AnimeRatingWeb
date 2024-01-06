@@ -12,7 +12,7 @@
 
 <body>
 <div th:replace="/headerFragment :: header"></div>
-<form th:action="@{/anime_rate/add_seen}" th:method="POST" id="watchedForm">
+<form th:action="@{/add_seen}" th:method="POST" id="watchedForm">
     <div class="anime-grid">
         <div class="anime-info">
             <div>
@@ -258,7 +258,7 @@
     <a onclick="setSeenAnimeValue(false)" class="main_refreshIcon">
         <i class="fa-solid fa-bookmark"></i>
     </a>
-    <a th:href="@{/anime_rate/}" class="main_refreshIcon">
+    <a th:href="@{/}" class="main_refreshIcon">
         <i class="fa-solid fa-arrows-rotate"></i>
     </a>
 </div>

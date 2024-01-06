@@ -27,6 +27,15 @@ public class Anime {
     private Integer charactersRatting;
     private Integer storyRatting;
     private Double averageRatting;
+    private Boolean currentlyWatching = false;
+
+    public Boolean getCurrentlyWatching() {
+        return currentlyWatching;
+    }
+
+    public void setCurrentlyWatching(Boolean currentlyWatching) {
+        this.currentlyWatching = currentlyWatching;
+    }
 
     public Double getAverageRatting() {
         List<Integer> animeRattings = Arrays.asList(

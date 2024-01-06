@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/anime_rate")
 public class MainController {
 
     private final UserService userService;
@@ -36,13 +35,11 @@ public class MainController {
         User user = getUser(principal);
         List<Anime> seenAnime = animeService.getSeenAnime(user);
         List<Anime> notSeenAnime = animeService.getNotSeenAnime(user);
-        Integer EpisodesSeen = animeService.getAllEpisodesSum();
-        Anime favoriteAnime = animeService.getFavoriteAnime();
+        List<Anime> watchingAnime = animeService.getCurretlyWatchingList();
 
         model.addAttribute("seenAnime",seenAnime);
         model.addAttribute("notSeenAnime",notSeenAnime);
-        model.addAttribute("episodesSeen", EpisodesSeen);
-        model.addAttribute("favoriteAnime",favoriteAnime);
+        model.addAttribute("currentlyWatching", watchingAnime);
 
         return "userList";
     }
@@ -53,15 +50,7 @@ public class MainController {
         User user = getUser(principal);
         animeService.saveAnimeToUser(animeDataDTO,user,seenAnime,dontAddToList);
 
-        return "redirect:/anime_rate/";
-    }
-
-    @GetMapping("/profile")
-            public String getProfilePage(Principal principal,Model model){
-            model.addAttribute("user",getUser(principal));
-            model.addAttribute("anime",animeService.getSeenAnime(getUser(principal)));
-            model.addAttribute("favoriteAnime",animeService.getFavoriteAnime());
-        return "profilePage";
+        return "redirect:/";
     }
 
     @GetMapping("/top_rated")
@@ -69,6 +58,20 @@ public class MainController {
         List<Anime> topAnime = animeService.getTopTenAnime();
         model.addAttribute("topAnime", topAnime);
         return "topRatedAnime";
+    }
+
+    @PostMapping("/watching")
+    public String addToCurrentlyWatching(@RequestParam Long animeId,Principal principal){
+        User user = getUser(principal);
+        animeService.changeAnimeStatus(user,animeId);
+        return "redirect:/user_list";
+    }
+
+    @PostMapping("/delete")
+    public String deleteAnime(@RequestParam Long animeId,Principal principal){
+        User user = getUser(principal);
+        animeService.deleteAnime(user,animeId);
+        return "redirect:/user_list";
     }
 
     private User getUser(Principal principal) {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -73,14 +74,12 @@ public class AnimeService {
 
     public List<Anime> getTopTenAnime() {
         return animeRepository.findTop6ByOrderByAverageRattingDesc().stream()
-                .filter(Anime::getSeen).toList();
+                .filter(Anime::getSeen)
+                .toList();
     }
 
     public Anime getFavoriteAnime() {
-        return animeRepository.findAllByOrderByAverageRattingDesc().stream()
-                .filter(Anime::getSeen)
-                .findFirst()
-                .orElse(null);
+        return animeRepository.findFirstByOrderByAverageRattingDesc().orElse(null);
     }
 
     public List<Anime> getSeenAnime(User user) {
@@ -92,6 +91,7 @@ public class AnimeService {
     public List<Anime> getNotSeenAnime(User user) {
         return user.getAnime().stream()
                 .filter(a -> !a.getSeen())
+                .filter(a -> !a.getCurrentlyWatching())
                 .toList();
     }
 
@@ -100,5 +100,25 @@ public class AnimeService {
             throw new RuntimeException("Could not found an Anime with" + titleJp + " title.");
         }
         return animeRepository.findByTitleJp(titleJp).get();
+    }
+
+    public void changeAnimeStatus(User user, Long animeId) {
+        Optional<Anime> animeOptional = user.getAnime().stream()
+                .filter(a -> Objects.equals(a.getId(), animeId))
+                .findFirst();
+
+        animeOptional.ifPresent(anime -> {
+            anime.setCurrentlyWatching(true);
+            userService.save(user);
+        });
+    }
+
+    public void deleteAnime(User user, Long animeId){
+        user.getAnime().removeIf(a -> Objects.equals(a.getId(), animeId));
+        userService.save(user);
+    }
+
+    public List<Anime> getCurretlyWatchingList(){
+        return animeRepository.findAllByCurrentlyWatchingTrue();
     }
 }
