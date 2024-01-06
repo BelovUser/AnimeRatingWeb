@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate Anime</title>
+    <link rel="stylesheet" href="/Style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div th:replace="/headerFragment :: header"></div>
+<form th:action="@{/edit}" th:method="POST" id="watchedForm">
+    <div class="anime-grid">
+        <div class="anime-info">
+            <div>
+                <h2>Title (EN):</h2>
+                <p th:text="${anime.getTitleEn()}">Loading..</p>
+                <h2>Title (JP):</h2>
+                <p th:text="${anime.getTitleJp()}">Loading..</p>
+            </div>
+            <div>
+                <h2>Release Date:</h2>
+                <p th:text="${anime.getReleaseDate()}">Loading..</p>
+            </div>
+            <div>
+                <h2>Episodes:</h2>
+                <p th:text="${anime.getEpisodeCount()}">Loading..</p>
+            </div>
+            <div class="anime-description">
+                <h2>Description:</h2>
+                <p th:text="${anime.getSynopsis()}">Loading..</p>
+            </div>
+        </div>
+        <div class="anime-poster">
+            <img th:src="${anime.getPosterUrl()}" alt="Poster Image"/>
+        </div>
+    </div>
+    <div class="page-buttons">
+        <div class="rating">
+            <div class="rating-text">
+                <div class="rating-artstyle">
+                    <div class="rating-title">
+                        <h3>Art Style</h3>
+                    </div>
+                    <br>
+                    <div class="rating-stars">
+                        <input type="radio" id="artStyleStar1" name="artStyleRatting" value="1">
+                        <label for="artStyleStar1">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar2" name="artStyleRatting" value="2">
+                        <label for="artStyleStar2">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar3" name="artStyleRatting" value="3">
+                        <label for="artStyleStar3">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar4" name="artStyleRatting" value="4">
+                        <label for="artStyleStar4">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar5" name="artStyleRatting" value="5">
+                        <label for="artStyleStar5">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar6" name="artStyleRatting" value="6">
+                        <label for="artStyleStar6">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar7" name="artStyleRatting" value="7">
+                        <label for="artStyleStar7">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar8" name="artStyleRatting" value="8">
+                        <label for="artStyleStar8">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar9" name="artStyleRatting" value="9">
+                        <label for="artStyleStar9">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="artStyleStar10" name="artStyleRatting" value="10">
+                        <label for="artStyleStar10">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="rating-animation">
+                    <div class="rating-title">
+                        <h3>Animation</h3>
+                    </div>
+                    <br>
+                    <div class="rating-stars">
+                        <input type="radio" id="animationStar1" name="animationRatting" value="1">
+                        <label for="animationStar1">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar2" name="animationRatting" value="2">
+                        <label for="animationStar2">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar3" name="animationRatting" value="3">
+                        <label for="animationStar3">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar4" name="animationRatting" value="4">
+                        <label for="animationStar4">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar5" name="animationRatting" value="5">
+                        <label for="animationStar5">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar6" name="animationRatting" value="6">
+                        <label for="animationStar6">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar7" name="animationRatting" value="7">
+                        <label for="animationStar7">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar8" name="animationRatting" value="8">
+                        <label for="animationStar8">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar9" name="animationRatting" value="9">
+                        <label for="animationStar9">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="animationStar10" name="animationRatting" value="10">
+                        <label for="animationStar10">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="rating-story">
+                    <div class="rating-title">
+                        <h3>Story</h3>
+                    </div>
+                    <br>
+                    <div class="rating-stars">
+                        <input type="radio" id="storyStar1" name="storyRatting" value="1">
+                        <label for="storyStar1">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar2" name="storyRatting" value="2">
+                        <label for="storyStar2">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar3" name="storyRatting" value="3">
+                        <label for="storyStar3">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar4" name="storyRatting" value="4">
+                        <label for="storyStar4">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar5" name="storyRatting" value="5">
+                        <label for="storyStar5">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar6" name="storyRatting" value="6">
+                        <label for="storyStar6">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar7" name="storyRatting" value="7">
+                        <label for="storyStar7">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar8" name="storyRatting" value="8">
+                        <label for="storyStar8">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar9" name="storyRatting" value="9">
+                        <label for="storyStar9">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="storyStar10" name="storyRatting" value="10">
+                        <label for="storyStar10">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="rating-characters">
+                    <div class="rating-title">
+                        <h3>Characters</h3>
+                    </div>
+                    <br>
+                    <div class="rating-stars">
+                        <input type="radio" id="charactersStar1" name="charactersRatting" value="1">
+                        <label for="charactersStar1">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar2" name="charactersRatting" value="2">
+                        <label for="charactersStar2">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar3" name="charactersRatting" value="3">
+                        <label for="charactersStar3">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar4" name="charactersRatting" value="4">
+                        <label for="charactersStar4">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar5" name="charactersRatting" value="5">
+                        <label for="charactersStar5">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar6" name="charactersRatting" value="6">
+                        <label for="charactersStar6">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar7" name="charactersRatting" value="7">
+                        <label for="charactersStar7">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar8" name="charactersRatting" value="8">
+                        <label for="charactersStar8">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar9" name="charactersRatting" value="9">
+                        <label for="charactersStar9">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                        <input type="radio" id="charactersStar10" name="charactersRatting" value="10">
+                        <label for="charactersStar10">
+                            <i class="fa-solid fa-star"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="animeId" th:value="${anime.getId()}">
+            <div class="rating-button">
+                <button th:type="submit">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

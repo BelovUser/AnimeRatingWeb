@@ -1,6 +1,7 @@
 package com.example.animerating.services;
 
 import com.example.animerating.dtos.AnimeDataDTO;
+import com.example.animerating.dtos.AnimeRattingDTO;
 import com.example.animerating.models.Anime;
 import com.example.animerating.models.User;
 import com.example.animerating.repositories.AnimeRepository;
@@ -66,6 +67,18 @@ public class AnimeService {
         userService.save(user);
     }
 
+    public void editAnimeToUser(AnimeRattingDTO animeRattingDTO){
+        Anime anime = animeRepository.findById(animeRattingDTO.animeId()).get();
+        anime.setAnimationRatting(animeRattingDTO.getAnimationRatingAsInt());
+        anime.setArtStyleRatting(animeRattingDTO.getArtStyleRatingAsInt());
+        anime.setCharactersRatting(animeRattingDTO.getCharactersRatingAsInt());
+        anime.setStoryRatting(animeRattingDTO.getStoryRatingAsInt());
+        anime.setSeen(true);
+        anime.setCurrentlyWatching(false);
+
+        animeRepository.save(anime);
+    }
+
     public Integer getAllEpisodesSum() {
         return animeRepository.findAll().stream()
                 .mapToInt(a -> Integer.parseInt(a.getEpisodeCount()))
@@ -100,6 +113,16 @@ public class AnimeService {
             throw new RuntimeException("Could not found an Anime with" + titleJp + " title.");
         }
         return animeRepository.findByTitleJp(titleJp).get();
+    }
+
+    public Anime getById(User user, Long animeId){
+        Optional<Anime> animeOptional = user.getAnime().stream()
+                .filter(a -> Objects.equals(a.getId(), animeId))
+                .findFirst();
+        if(animeOptional.isEmpty()){
+            throw new RuntimeException("Could not found anime by this id:"+animeId);
+        }
+        return animeOptional.get();
     }
 
     public void changeAnimeStatus(User user, Long animeId) {

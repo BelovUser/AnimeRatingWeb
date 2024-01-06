@@ -22,7 +22,12 @@
                 <td th:text="${anime.getTitleEn()}">Loading..</td>
                 <td th:text="${anime.getAverageRatting()} + '/10'">Loading..</td>
                 <td class="userList-icon">
-                    <a href="/edit"><i class="fa-sharp fa-regular fa-pen-to-square"></i></a>
+                    <form th:action="@{/rate}" th:method="POST">
+                    <button th:type="submit">
+                        <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
+                        <i class="fa-sharp fa-regular fa-pen-to-square"></i>
+                    </button>
+                    </form>
                 </td>
             </tr>
         </table>
@@ -36,10 +41,15 @@
                 <th></th>
             </tr>
             <tr th:each="anime : ${currentlyWatching}">
-                <td th:text="${anime.getTitleEn()}" >Loading..</td>
-                <td th:text="'Episodes: ' + ${anime.getEpisodeCount()}" >Loading..</td>
+                <td th:text="${anime.getTitleEn()}">Loading..</td>
+                <td th:text="'Episodes: ' + ${anime.getEpisodeCount()}">Loading..</td>
                 <td class="userList-icon">
-                    <a href="/seen"><i class="fa-sharp fa-solid fa-star"></i></a>
+                    <form th:action="@{/rate}" th:method="POST">
+                        <button th:type="submit">
+                            <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
+                            <i class="fa-sharp fa-solid fa-star"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
         </table>
@@ -55,18 +65,20 @@
             <tr th:each="anime : ${notSeenAnime}">
                 <td th:text="${anime.getTitleEn()}">Loading..</td>
                 <td class="userList-icon">
-                    <form th:action="@{/watching}" th:method="POST">
-                        <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
-                        <button th:type="submit">
-                            <i class="fa-sharp fa-solid fa-eye"></i>
-                        </button>
-                    </form>
-                    <form th:action="@{/delete}" th:method="POST">
-                        <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
-                        <button th:type="submit">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </form>
+                    <div class="userList-buttons">
+                        <form th:action="@{/watching}" th:method="POST">
+                            <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
+                            <button th:type="submit">
+                                <i class="fa-sharp fa-solid fa-eye"></i>
+                            </button>
+                        </form>
+                        <form th:action="@{/delete}" th:method="POST">
+                            <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
+                            <button th:type="submit">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         </table>

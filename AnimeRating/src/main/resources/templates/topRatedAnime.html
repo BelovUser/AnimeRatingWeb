@@ -12,9 +12,14 @@
 <div th:replace="/headerFragment :: header"></div>
 <div class="topRated">
     <div class="topRated-topAnime" th:each="anime : ${topAnime}">
-        <div class="topAnimeItem">
-            <img class="poster" th:src="${anime.getPosterUrl()}" alt="Poster Img">
-            <h2 class="title" th:text="${anime.getTitleEn()}"></h2>
+        <div class="topRated-Anime">
+            <div class="topAnimeItem">
+                <img class="poster" th:src="${anime.getPosterUrl()}" alt="Poster Img">
+                <h2 class="title" th:text="${anime.getTitleEn()}"></h2>
+            </div>
+            <div class="topRated-ratingNumber">
+                <p th:text="${anime.getAverageRatting()}"></p>
+            </div>
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 package com.example.animerating.controllers;
 
 import com.example.animerating.dtos.AnimeDataDTO;
+import com.example.animerating.dtos.AnimeRattingDTO;
 import com.example.animerating.models.Anime;
 import com.example.animerating.models.User;
 import com.example.animerating.services.AnimeService;
@@ -26,52 +27,66 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String getMainPage(Principal principal){
+    public String getMainPage(Principal principal) {
         return "main";
     }
 
     @GetMapping("/user_list")
-    public String getUserListPage(Principal principal, Model model){
+    public String getUserListPage(Principal principal, Model model) {
         User user = getUser(principal);
         List<Anime> seenAnime = animeService.getSeenAnime(user);
         List<Anime> notSeenAnime = animeService.getNotSeenAnime(user);
         List<Anime> watchingAnime = animeService.getCurretlyWatchingList();
 
-        model.addAttribute("seenAnime",seenAnime);
-        model.addAttribute("notSeenAnime",notSeenAnime);
+        model.addAttribute("seenAnime", seenAnime);
+        model.addAttribute("notSeenAnime", notSeenAnime);
         model.addAttribute("currentlyWatching", watchingAnime);
 
         return "userList";
     }
 
     @PostMapping("/add_seen")
-    public String addToWatched(@RequestParam Optional<String> seenAnime,@RequestParam Optional<String> dontAddToList,
+    public String addToWatched(@RequestParam Optional<String> seenAnime, @RequestParam Optional<String> dontAddToList,
                                AnimeDataDTO animeDataDTO, Principal principal) {
         User user = getUser(principal);
-        animeService.saveAnimeToUser(animeDataDTO,user,seenAnime,dontAddToList);
+        animeService.saveAnimeToUser(animeDataDTO, user, seenAnime, dontAddToList);
 
         return "redirect:/";
     }
 
+    @PostMapping("/edit")
+    public String editAnime(AnimeRattingDTO animeRattingDTO){
+        animeService.editAnimeToUser(animeRattingDTO);
+        return "redirect:/user_list";
+    }
+
     @GetMapping("/top_rated")
-    public String getTopRatedPage(Model model, Principal principal){
+    public String getTopRatedPage(Model model, Principal principal) {
         List<Anime> topAnime = animeService.getTopTenAnime();
         model.addAttribute("topAnime", topAnime);
         return "topRatedAnime";
     }
 
     @PostMapping("/watching")
-    public String addToCurrentlyWatching(@RequestParam Long animeId,Principal principal){
+    public String addToCurrentlyWatching(@RequestParam Long animeId, Principal principal) {
         User user = getUser(principal);
-        animeService.changeAnimeStatus(user,animeId);
+        animeService.changeAnimeStatus(user, animeId);
         return "redirect:/user_list";
     }
 
     @PostMapping("/delete")
-    public String deleteAnime(@RequestParam Long animeId,Principal principal){
+    public String deleteAnime(@RequestParam Long animeId, Principal principal) {
         User user = getUser(principal);
-        animeService.deleteAnime(user,animeId);
+        animeService.deleteAnime(user, animeId);
         return "redirect:/user_list";
+    }
+
+    @PostMapping("/rate")
+    public String getRateAnimePage(@RequestParam Long animeId, Principal principal,Model model) {
+        User user = getUser(principal);
+        Anime anime = animeService.getById(user,animeId);
+        model.addAttribute("anime",anime);
+        return "animeRating";
     }
 
     private User getUser(Principal principal) {

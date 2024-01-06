@@ -193,18 +193,23 @@ h1,
 h2 {
     color: #7289da;
 }
-a {
+p,
+button {
+    color: #ffffff;
+}
+.userList-body button{
+    margin-left: 10px;
+    font-size: 1rem;
+}
+a,
+.userList-body button{
     color: #7289da;
     text-decoration: none;
     padding: 10px;
 }
 
-a:hover {
-    color: #ffffff;
-}
-
-p,
-button {
+a:hover,
+.userList-body button{
     color: #ffffff;
 }
 
@@ -225,7 +230,7 @@ button {
     border-radius: 20px;
     height: auto;
     transition: opacity 0.3s ease;
-    margin-top: 60px;
+    margin-top: 15px;
     max-width: 240px;
 }
 
@@ -410,4 +415,32 @@ td {
 }
 .anime-buttons{
     cursor: pointer;
+}
+.userList-buttons{
+    display: inline-flex;
+}
+.userList-body button{
+    border-radius: 100px;
+    margin-bottom: 3px;
+    width: 40px;
+}
+.userList-currentlyWatching p{
+    color: #42464d;
+}
+.userList-currentlyWatching button{
+    color: #c5c5c5;
+}
+.topRated-ratingNumber{
+    color: #ffffff;
+    font-size: 2rem;
+    margin-top: 10px;
+    background: linear-gradient(to top, #7289da, transparent);
+    font-weight: bolder;
+    border-radius: 10px;
+    padding: 15px;
+}
+.topRated-Anime {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
