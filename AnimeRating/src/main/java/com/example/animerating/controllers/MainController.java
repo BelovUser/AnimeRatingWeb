@@ -33,6 +33,7 @@ public class MainController {
         KitsuAnimeDTO randomAnime = animeService.getRandomUniqueToUserAnime(user);
         model.addAttribute("randomAnime",randomAnime);
         return "main";
+
     }
 
     @GetMapping("/user_list")
@@ -90,6 +91,13 @@ public class MainController {
         User user = getUser(principal);
         Anime anime = animeService.getById(user,animeId);
         model.addAttribute("anime",anime);
+        return "animeRating";
+    }
+
+    @PostMapping("/search")
+    public String getSearchAnimePage(@RequestParam String title,Principal principal,Model model){
+        KitsuAnimeDTO searchedAnime = animeService.getKitsuAnimeDTOByTitle(title);
+        model.addAttribute("anime", searchedAnime);
         return "animeRating";
     }
 

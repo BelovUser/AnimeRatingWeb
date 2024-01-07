@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -152,15 +153,20 @@ public class AnimeService {
         return animeRepository.findAllByCurrentlyWatchingTrue();
     }
 
-    public KitsuAnimeDTO getRandomUniqueToUserAnime(User user){
+    public KitsuAnimeDTO getRandomUniqueToUserAnime(User user) {
         List<String> titlesJpOwnedByUser = user.getAnime().stream()
                 .map(Anime::getTitleJp)
                 .toList();
 
         KitsuAnimeDTO randomAnime;
         do {
-            randomAnime = getRandomKitsuAnimeDTO();
-        } while (titlesJpOwnedByUser.contains(randomAnime.titleJP()));
+            try {
+                randomAnime = getRandomKitsuAnimeDTO();
+            } catch (WebClientResponseException.NotFound ex) {
+                randomAnime = null;
+                break;
+            }
+        } while (titlesJpOwnedByUser.contains(randomAnime != null ? randomAnime.titleJP() : null));
 
         return randomAnime;
     }
