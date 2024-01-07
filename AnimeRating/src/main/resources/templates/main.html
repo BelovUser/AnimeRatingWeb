@@ -17,31 +17,31 @@
         <div class="anime-info">
             <div>
                 <h2>Title (EN):</h2>
-                <p id="animeTitleEng">Loading..</p>
-                <input type="hidden" id="hiddenAnimeTitleEng" name="titleEng"/>
+                <p th:text="${randomAnime.titleEng()}">Loading..</p>
+                <input type="hidden" th:value="${randomAnime.titleEng()}" name="titleEng"/>
                 <h2>Title (JP):</h2>
-                <p id="animeTitleJP">Loading..</p>
-                <input type="hidden" id="hiddenAnimeTitleJP" name="titleJP"/>
+                <p th:text="${randomAnime.titleJP()}">Loading..</p>
+                <input type="hidden" th:value="${randomAnime.titleJP()}" name="titleJP"/>
             </div>
             <div>
                 <h2>Release Date:</h2>
-                <p id="releaseDate">Loading..</p>
-                <input type="hidden" id="hiddenReleaseDate" name="releaseDate"/>
+                <p th:text="${randomAnime.releaseDate()}">Loading..</p>
+                <input type="hidden" th:value="${randomAnime.releaseDate()}" name="releaseDate"/>
             </div>
             <div>
                 <h2>Episodes:</h2>
-                <p id="episodes">Loading..</p>
-                <input type="hidden" id="hiddenEpisodes" name="episodes"/>
+                <p th:text="${randomAnime.episodes()}">Loading..</p>
+                <input type="hidden" th:value="${randomAnime.episodes()}" name="episodes"/>
             </div>
             <div class="anime-description">
                 <h2>Description:</h2>
-                <p id="description">Loading..</p>
-                <input type="hidden" id="hiddenDescription" name="description"/>
+                <p th:text="${randomAnime.description()}">Loading..</p>
+                <input type="hidden" th:value="${randomAnime.description()}" name="description"/>
             </div>
         </div>
         <div class="anime-poster">
-            <img id="posterImage" alt="Poster Image"/>
-            <input type="hidden" id="hiddenPosterImage" name="posterImage"/>
+            <img alt="Poster Image" th:src="${randomAnime.posterImage()}"/>
+            <input type="hidden" th:value="${randomAnime.posterImage()}" name="posterImage"/>
         </div>
     </div>
     <div class="page-buttons">
@@ -263,43 +263,6 @@
     </a>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const randomId = Math.floor(Math.random() * 100) + 1;
-        const apiUrl = `https://kitsu.io/api/edge/anime/${randomId}`;
-
-        const titleEng = document.getElementById('animeTitleEng');
-        const titleJP = document.getElementById('animeTitleJP');
-        const releaseDate = document.getElementById('releaseDate');
-        const seasons = document.getElementById('episodes');
-        const description = document.getElementById('description');
-        const posterImg = document.getElementById('posterImage');
-
-        fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                titleEng.textContent = data.data.attributes.titles.en;
-                titleJP.textContent = data.data.attributes.titles.ja_jp;
-                releaseDate.textContent = data.data.attributes.startDate;
-                seasons.textContent = data.data.attributes.episodeCount;
-                description.textContent = data.data.attributes.synopsis;
-                posterImg.src = data.data.attributes.posterImage.medium;
-
-                document.getElementById('hiddenAnimeTitleEng').value = titleEng.textContent;
-                document.getElementById('hiddenAnimeTitleJP').value = titleJP.textContent;
-                document.getElementById('hiddenReleaseDate').value = releaseDate.textContent;
-                document.getElementById('hiddenEpisodes').value = seasons.textContent;
-                document.getElementById('hiddenDescription').value = description.textContent;
-                document.getElementById('hiddenPosterImage').value = posterImg.src;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
     function toggleRating() {
         document.querySelector(".rating").classList.toggle("hidden");
     }

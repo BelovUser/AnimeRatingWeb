@@ -2,29 +2,36 @@ package com.example.animerating.services;
 
 import com.example.animerating.dtos.AnimeDataDTO;
 import com.example.animerating.dtos.AnimeRattingDTO;
+import com.example.animerating.dtos.KitsuAnimeDTO;
 import com.example.animerating.models.Anime;
 import com.example.animerating.models.User;
 import com.example.animerating.repositories.AnimeRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
-import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class AnimeService {
 
     private final AnimeRepository animeRepository;
     private final UserService userService;
+    private final WebClientService webClientService;
 
 
     @Autowired
-    public AnimeService(AnimeRepository animeRepository, UserService userService) {
+    public AnimeService(AnimeRepository animeRepository, UserService userService, WebClientService webClientService) {
         this.animeRepository = animeRepository;
         this.userService = userService;
+        this.webClientService = webClientService;
     }
 
 
@@ -143,5 +150,51 @@ public class AnimeService {
 
     public List<Anime> getCurretlyWatchingList(){
         return animeRepository.findAllByCurrentlyWatchingTrue();
+    }
+
+    public KitsuAnimeDTO getRandomUniqueToUserAnime(User user){
+        List<String> titlesJpOwnedByUser = user.getAnime().stream()
+                .map(Anime::getTitleJp)
+                .toList();
+
+        KitsuAnimeDTO randomAnime;
+        do {
+            randomAnime = getRandomKitsuAnimeDTO();
+        } while (titlesJpOwnedByUser.contains(randomAnime.titleJP()));
+
+        return randomAnime;
+    }
+
+    public KitsuAnimeDTO getRandomKitsuAnimeDTO(){
+        Mono<String> fetchedData = webClientService.fetchDataById(new Random().nextInt(300));
+        return fetchedData
+                .map(r -> convertJsonToKitsuAnimeDTO(r))
+                .block();
+    }
+    public KitsuAnimeDTO getKitsuAnimeDTOByTitle(String searchTerm) {
+        Mono<String> fetchedData = webClientService.searchAnimeByTitle(searchTerm);
+        return fetchedData
+                .map(r -> convertJsonToKitsuAnimeDTO(r))
+                .block();
+    }
+
+    private KitsuAnimeDTO convertJsonToKitsuAnimeDTO(String jsonString) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+            JsonNode attributes = jsonNode.path("data").path("attributes");
+
+            String titleEng = attributes.path("titles").path("en").asText();
+            String titleJP = attributes.path("titles").path("ja_jp").asText();
+            String startDate = attributes.path("startDate").asText();
+            String episodeCount = attributes.path("episodeCount").asText();
+            String synopsis = attributes.path("synopsis").asText();
+            String posterImage = attributes.path("posterImage").path("medium").asText();
+
+            return new KitsuAnimeDTO(titleEng, titleJP, startDate, episodeCount, synopsis, posterImage);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

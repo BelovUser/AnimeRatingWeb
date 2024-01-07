@@ -2,6 +2,7 @@ package com.example.animerating.controllers;
 
 import com.example.animerating.dtos.AnimeDataDTO;
 import com.example.animerating.dtos.AnimeRattingDTO;
+import com.example.animerating.dtos.KitsuAnimeDTO;
 import com.example.animerating.models.Anime;
 import com.example.animerating.models.User;
 import com.example.animerating.services.AnimeService;
@@ -27,7 +28,10 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String getMainPage(Principal principal) {
+    public String getMainPage(Principal principal,Model model) {
+        User user = getUser(principal);
+        KitsuAnimeDTO randomAnime = animeService.getRandomUniqueToUserAnime(user);
+        model.addAttribute("randomAnime",randomAnime);
         return "main";
     }
 
