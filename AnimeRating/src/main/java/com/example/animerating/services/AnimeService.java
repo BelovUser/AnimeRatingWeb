@@ -14,11 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class AnimeService {
@@ -62,7 +60,7 @@ public class AnimeService {
         anime.setCharactersRatting(animeDataDTO.getCharactersRatingAsInt());
         anime.setStoryRatting(animeDataDTO.getStoryRatingAsInt());
 
-        if(addToSeen.get().equals("true")){
+        if (addToSeen.get().equals("true")) {
             anime.setSeen(true);
         } else {
             anime.setSeen(false);
@@ -75,7 +73,7 @@ public class AnimeService {
         userService.save(user);
     }
 
-    public void editAnimeToUser(AnimeRattingDTO animeRattingDTO){
+    public void editAnimeToUser(AnimeRattingDTO animeRattingDTO) {
         Anime anime = animeRepository.findById(animeRattingDTO.animeId()).get();
         anime.setAnimationRatting(animeRattingDTO.getAnimationRatingAsInt());
         anime.setArtStyleRatting(animeRattingDTO.getArtStyleRatingAsInt());
@@ -116,19 +114,19 @@ public class AnimeService {
                 .toList();
     }
 
-    public Anime getByJpTitle(String titleJp){
-        if(animeRepository.findByTitleJp(titleJp).isEmpty()){
+    public Anime getByJpTitle(String titleJp) {
+        if (animeRepository.findByTitleJp(titleJp).isEmpty()) {
             throw new RuntimeException("Could not found an Anime with" + titleJp + " title.");
         }
         return animeRepository.findByTitleJp(titleJp).get();
     }
 
-    public Anime getById(User user, Long animeId){
+    public Anime getById(User user, Long animeId) {
         Optional<Anime> animeOptional = user.getAnime().stream()
                 .filter(a -> Objects.equals(a.getId(), animeId))
                 .findFirst();
-        if(animeOptional.isEmpty()){
-            throw new RuntimeException("Could not found anime by this id:"+animeId);
+        if (animeOptional.isEmpty()) {
+            throw new RuntimeException("Could not found anime by this id:" + animeId);
         }
         return animeOptional.get();
     }
@@ -144,12 +142,12 @@ public class AnimeService {
         });
     }
 
-    public void deleteAnime(User user, Long animeId){
+    public void deleteAnime(User user, Long animeId) {
         user.getAnime().removeIf(a -> Objects.equals(a.getId(), animeId));
         userService.save(user);
     }
 
-    public List<Anime> getCurretlyWatchingList(){
+    public List<Anime> getCurretlyWatchingList() {
         return animeRepository.findAllByCurrentlyWatchingTrue();
     }
 
@@ -171,33 +169,57 @@ public class AnimeService {
         return randomAnime;
     }
 
-    public KitsuAnimeDTO getRandomKitsuAnimeDTO(){
+    public KitsuAnimeDTO getRandomKitsuAnimeDTO() {
         Mono<String> fetchedData = webClientService.fetchDataById(new Random().nextInt(300));
         return fetchedData
                 .map(r -> convertJsonToKitsuAnimeDTO(r))
                 .block();
     }
-    public KitsuAnimeDTO getKitsuAnimeDTOByTitle(String searchTerm) {
-        Mono<String> fetchedData = webClientService.searchAnimeByTitle(searchTerm);
+
+    private List<KitsuAnimeDTO> convertJsonArrayToKitsuAnimeDTOList(String jsonString) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode jsonArray = objectMapper.readTree(jsonString).path("data");
+
+            return StreamSupport.stream(jsonArray.spliterator(), false)
+                    .map(data -> convertJsonToKitsuAnimeDTO(data.toString()))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public List<KitsuAnimeDTO> getKitsuAnimeDTOByCategories(List<String> animeCategories) {
+        String joinedCategories = String.join(",", animeCategories);
+        Mono<String> fetchedData = webClientService.searchAnimeCategories(List.of(joinedCategories));
+
+        System.out.println(fetchedData
+                .map(r -> convertJsonArrayToKitsuAnimeDTOList(r))
+                .block());
+
         return fetchedData
-                .map(r -> convertJsonToKitsuAnimeDTO(r))
+                .map(r -> convertJsonArrayToKitsuAnimeDTOList(r))
                 .block();
     }
 
-    private KitsuAnimeDTO convertJsonToKitsuAnimeDTO(String jsonString) {
+
+
+    private KitsuAnimeDTO convertJsonToKitsuAnimeDTO(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            JsonNode jsonNode = objectMapper.readTree(jsonString);
-            JsonNode attributes = jsonNode.path("data").path("attributes");
+            JsonNode jsonNode = objectMapper.readTree(json);
+            JsonNode attributes = jsonNode.path("attributes");
 
-            String titleEng = attributes.path("titles").path("en").asText();
-            String titleJP = attributes.path("titles").path("ja_jp").asText();
-            String startDate = attributes.path("startDate").asText();
-            String episodeCount = attributes.path("episodeCount").asText();
-            String synopsis = attributes.path("synopsis").asText();
-            String posterImage = attributes.path("posterImage").path("medium").asText();
-
-            return new KitsuAnimeDTO(titleEng, titleJP, startDate, episodeCount, synopsis, posterImage);
+            return new KitsuAnimeDTO(
+                    attributes.path("titles").path("en").asText("Unknown"),
+                    attributes.path("titles").path("ja_jp").asText("Unknown"),
+                    attributes.path("startDate").asText("Unknown"),
+                    attributes.path("episodeCount").asText("Unknown"),
+                    attributes.path("synopsis").asText("No description available"),
+                    attributes.path("posterImage").path("medium").asText("No image available")
+            );
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;

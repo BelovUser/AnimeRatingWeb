@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class WebClientService {
 
@@ -22,10 +24,10 @@ public class WebClientService {
                 .bodyToMono(String.class);
     }
 
-    public Mono<String> searchAnimeByTitle(String searchTerm) {
+    public Mono<String> searchAnimeCategories(List<String> categories) {
         return webClient.get()
                 .uri("/anime", uriBuilder -> uriBuilder
-                        .queryParam("filter[text]", searchTerm)
+                        .queryParam("filter[categories]", categories.toArray())
                         .build())
                 .retrieve()
                 .bodyToMono(String.class);

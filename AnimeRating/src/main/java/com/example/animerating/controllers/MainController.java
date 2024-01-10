@@ -59,7 +59,7 @@ public class MainController {
         return "redirect:/";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/edit_anime")
     public String editAnime(AnimeRattingDTO animeRattingDTO){
         animeService.editAnimeToUser(animeRattingDTO);
         return "redirect:/user_list";
@@ -72,21 +72,21 @@ public class MainController {
         return "topRatedAnime";
     }
 
-    @PostMapping("/watching")
+    @PostMapping("/add_watching_anime")
     public String addToCurrentlyWatching(@RequestParam Long animeId, Principal principal) {
         User user = getUser(principal);
         animeService.changeAnimeStatus(user, animeId);
         return "redirect:/user_list";
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete_anime")
     public String deleteAnime(@RequestParam Long animeId, Principal principal) {
         User user = getUser(principal);
         animeService.deleteAnime(user, animeId);
         return "redirect:/user_list";
     }
 
-    @PostMapping("/rate")
+    @PostMapping("/rate_anime")
     public String getRateAnimePage(@RequestParam Long animeId, Principal principal,Model model) {
         User user = getUser(principal);
         Anime anime = animeService.getById(user,animeId);
@@ -94,11 +94,17 @@ public class MainController {
         return "animeRating";
     }
 
-    @PostMapping("/search")
-    public String getSearchAnimePage(@RequestParam String title,Principal principal,Model model){
-        KitsuAnimeDTO searchedAnime = animeService.getKitsuAnimeDTOByTitle(title);
-        model.addAttribute("anime", searchedAnime);
-        return "animeRating";
+    @GetMapping("/anime_categories")
+    public String getSearchAnimePage(){
+        return "searchPage";
+    }
+
+    @PostMapping("/search_anime")
+    public String getSearchAnimePage(@RequestBody@RequestParam(value = "category", required = false) List<String> categories,
+                                     Model model){
+            List<KitsuAnimeDTO> searchedAnime = animeService.getKitsuAnimeDTOByCategories(categories);
+            model.addAttribute("searchedAnime", searchedAnime);
+            return "searchPage";
     }
 
     private User getUser(Principal principal) {

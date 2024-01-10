@@ -1,6 +1,6 @@
 package com.example.animerating.dtos;
 
-public record KitsuAnimeDTO(String titleEng,
+public record KitsuAnimeDTO(String titleEn,
                             String titleJP,
                             String releaseDate,
                             String episodes,
