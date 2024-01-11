@@ -87,6 +87,15 @@ public class MainController {
     }
 
     @PostMapping("/rate_anime")
+    public String getRateAnimePage(@ModelAttribute AnimeDataDTO anime, Principal principal,Model model) {
+            model.addAttribute("anime", anime);
+        if(anime.id() != null) {
+            return "editAnimeRating";
+        }
+        return "animeRating";
+    }
+
+    @PostMapping("/edit_anime")
     public String getRateAnimePage(@RequestParam Long animeId, Principal principal,Model model) {
         User user = getUser(principal);
         Anime anime = animeService.getById(user,animeId);
