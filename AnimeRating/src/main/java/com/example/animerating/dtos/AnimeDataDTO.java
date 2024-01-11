@@ -9,7 +9,8 @@ public record AnimeDataDTO(String titleEng,
                            String artStyleRatting,
                            String animationRatting,
                            String storyRatting,
-                           String charactersRatting) {
+                           String charactersRatting,
+                           Long id) {
     public Integer getArtStyleRatingAsInt() {
         return convertToInt(artStyleRatting);
     }
