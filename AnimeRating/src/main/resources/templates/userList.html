@@ -22,7 +22,7 @@
                 <td th:text="${anime.getTitleEn()}">Loading..</td>
                 <td th:text="${anime.getAverageRatting()} + '/10'">Loading..</td>
                 <td class="userList-icon">
-                    <form th:action="@{/rate_anime}" th:method="POST">
+                    <form th:action="@{/edit_anime_rating}" th:method="POST">
                     <button th:type="submit">
                         <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
                         <i class="fa-sharp fa-regular fa-pen-to-square"></i>
@@ -44,7 +44,7 @@
                 <td th:text="${anime.getTitleEn()}">Loading..</td>
                 <td th:text="'Episodes: ' + ${anime.getEpisodeCount()}">Loading..</td>
                 <td class="userList-icon">
-                    <form th:action="@{/edit_anime}" th:method="POST">
+                    <form th:action="@{/edit_anime_rating}" th:method="POST">
                         <button th:type="submit">
                             <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
                             <i class="fa-sharp fa-solid fa-star"></i>

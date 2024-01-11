@@ -87,7 +87,7 @@ public class MainController {
     }
 
     @PostMapping("/rate_anime")
-    public String getRateAnimePage(@ModelAttribute AnimeDataDTO anime, Principal principal,Model model) {
+    public String rateAnimePage(@ModelAttribute AnimeDataDTO anime, Principal principal,Model model) {
             model.addAttribute("anime", anime);
         if(anime.id() != null) {
             return "editAnimeRating";
@@ -95,8 +95,8 @@ public class MainController {
         return "animeRating";
     }
 
-    @PostMapping("/edit_anime")
-    public String getRateAnimePage(@RequestParam Long animeId, Principal principal,Model model) {
+    @PostMapping("/edit_anime_rating")
+    public String editAnimePage(@RequestParam Long animeId, Principal principal,Model model) {
         User user = getUser(principal);
         Anime anime = animeService.getById(user,animeId);
         model.addAttribute("anime",anime);
