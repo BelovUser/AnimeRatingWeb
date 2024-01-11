@@ -31,7 +31,7 @@ public class MainController {
     public String getMainPage(Principal principal,Model model) {
         User user = getUser(principal);
         KitsuAnimeDTO randomAnime = animeService.getRandomUniqueToUserAnime(user);
-        model.addAttribute("randomAnime",randomAnime);
+        model.addAttribute("anime",randomAnime);
         return "main";
 
     }
@@ -88,11 +88,8 @@ public class MainController {
 
     @PostMapping("/rate_anime")
     public String rateAnimePage(@ModelAttribute AnimeDataDTO anime, Principal principal,Model model) {
-            model.addAttribute("anime", anime);
-        if(anime.id() != null) {
-            return "editAnimeRating";
-        }
-        return "animeRating";
+        model.addAttribute("anime",anime);
+        return "main";
     }
 
     @PostMapping("/edit_anime_rating")

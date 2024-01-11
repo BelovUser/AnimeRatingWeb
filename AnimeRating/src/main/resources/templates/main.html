@@ -17,31 +17,31 @@
         <div class="anime-info">
             <div>
                 <h2>Title (EN):</h2>
-                <p th:text="${randomAnime.titleEn()}">Loading..</p>
-                <input type="hidden" th:value="${randomAnime.titleEn()}" name="titleEng"/>
+                <p th:text="${anime.titleEng()}">Loading..</p>
+                <input type="hidden" th:value="${anime.titleEng()}" name="titleEng"/>
                 <h2>Title (JP):</h2>
-                <p th:text="${randomAnime.titleJP()}">Loading..</p>
-                <input type="hidden" th:value="${randomAnime.titleJP()}" name="titleJP"/>
+                <p th:text="${anime.titleJP()}">Loading..</p>
+                <input type="hidden" th:value="${anime.titleJP()}" name="titleJP"/>
             </div>
             <div>
                 <h2>Release Date:</h2>
-                <p th:text="${randomAnime.releaseDate()}">Loading..</p>
-                <input type="hidden" th:value="${randomAnime.releaseDate()}" name="releaseDate"/>
+                <p th:text="${anime.releaseDate()}">Loading..</p>
+                <input type="hidden" th:value="${anime.releaseDate()}" name="releaseDate"/>
             </div>
             <div>
                 <h2>Episodes:</h2>
-                <p th:text="${randomAnime.episodes()}">Loading..</p>
-                <input type="hidden" th:value="${randomAnime.episodes()}" name="episodes"/>
+                <p th:text="${anime.episodes()}">Loading..</p>
+                <input type="hidden" th:value="${anime.episodes()}" name="episodes"/>
             </div>
             <div class="anime-description">
                 <h2>Description:</h2>
-                <p th:text="${randomAnime.description()}">Loading..</p>
-                <input type="hidden" th:value="${randomAnime.description()}" name="description"/>
+                <p th:text="${anime.description()}">Loading..</p>
+                <input type="hidden" th:value="${anime.description()}" name="description"/>
             </div>
         </div>
         <div class="anime-poster">
-            <img alt="Poster Image" th:src="${randomAnime.posterImage()}"/>
-            <input type="hidden" th:value="${randomAnime.posterImage()}" name="posterImage"/>
+            <img alt="Poster Image" th:src="${anime.posterImage()}"/>
+            <input type="hidden" th:value="${anime.posterImage()}" name="posterImage"/>
         </div>
     </div>
     <div class="page-buttons">
