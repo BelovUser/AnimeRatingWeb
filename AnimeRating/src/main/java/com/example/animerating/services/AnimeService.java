@@ -172,7 +172,7 @@ public class AnimeService {
     public KitsuAnimeDTO getRandomKitsuAnimeDTO() {
         Mono<String> fetchedData = webClientService.fetchDataById(new Random().nextInt(300));
         return fetchedData
-                .map(r -> convertJsonToKitsuAnimeDTO(r))
+                .map(r -> convertJsonToKitsuAnimeDTOForRandom(r))
                 .block();
     }
 
@@ -202,6 +202,26 @@ public class AnimeService {
         return fetchedData
                 .map(r -> convertJsonArrayToKitsuAnimeDTOList(r))
                 .block();
+    }
+
+    private KitsuAnimeDTO convertJsonToKitsuAnimeDTOForRandom(String json){
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode jsonNode = objectMapper.readTree(json);
+            JsonNode attributes = jsonNode.path("data").path("attributes");
+
+            return new KitsuAnimeDTO(
+                    attributes.path("titles").path("en").asText("Unknown"),
+                    attributes.path("titles").path("ja_jp").asText("Unknown"),
+                    attributes.path("startDate").asText("Unknown"),
+                    attributes.path("episodeCount").asText("Unknown"),
+                    attributes.path("synopsis").asText("No description available"),
+                    attributes.path("posterImage").path("medium").asText("No image available")
+            );
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
