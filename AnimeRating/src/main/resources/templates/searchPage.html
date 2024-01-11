@@ -25,12 +25,16 @@
     </form>
 </div>
 <div th:unless="${searchedAnime.isEmpty()}" th:each="anime : ${searchedAnime}">
-            <p th:if="${anime.titleEn() != null}" th:text="${anime.titleEn()}">Loading..</p>
-            <img th:if="${anime.posterImage() != null}" th:src="${anime.posterImage}" alt="Poster Image">
-            <form th:action="@{/rate_anime}" th:method="POST">
-                <input type="hidden" th:value="${anime}" th:name="anime">
-                <button th:type="submit">rate</button>
-            </form>
+    <p th:if="${anime.titleEn() != null}" th:text="${anime.titleEn()}">Loading..</p>
+    <img th:if="${anime.posterImage() != null}" th:src="${anime.posterImage}" alt="Poster Image">
+    <form th:action="@{/rate_anime}" th:method="POST">
+        <input type="hidden" th:value="${anime.posterImage()}" th:name="posterImage">
+        <input type="hidden" th:value="${anime.titleEn()}" th:name="titleEn">
+        <input type="hidden" th:value="${anime.titleJP()}" th:name="titleJP">
+        <input type="hidden" th:value="${anime.description()}" th:name="description">
+        <input type="hidden" th:value="${anime.episodes()}" th:name="episodes">
+        <button th:type="submit">rate</button>
+    </form>
 </div>
 </body>
 </html>
