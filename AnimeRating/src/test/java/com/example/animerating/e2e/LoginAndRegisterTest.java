@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.*;
 
-public class LoginAndRegisterTesting {
+public class LoginAndRegisterTest {
     private Browser browser;
     private Page page;
 
@@ -75,5 +75,21 @@ public class LoginAndRegisterTesting {
         page.click("button[type=submit]");
 
         Assertions.assertEquals("http://localhost:8080/login?error", page.url());
+    }
+
+    @Test
+    @Order(4)
+    public void testRegisterUsernameExist() {
+        browser = Playwright.create().chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        BrowserContext context = browser.newContext();
+        page = context.newPage();
+
+        page.navigate("http://localhost:8080/register");
+
+        page.type("input[name=username]", "testNewUser");
+        page.type("input[name=password]", "testPassword");
+        page.click("button[type=submit]");
+
+        Assertions.assertEquals("http://localhost:8080/register?userExist=true", page.url());
     }
 }

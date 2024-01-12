@@ -245,14 +245,14 @@
 
             </div>
             <div class="rating-button">
-                <button type="submit" onclick="setSeenAnimeValue(true)" >add to watched</button>
+                <button id="add_to_watched_button" type="submit" onclick="setSeenAnimeValue(true)" >add to watched</button>
             </div>
         </div>
     </div>
         <input type="hidden" id="seenAnimeInput" name="seenAnime" value=" ">
 </form>
 <div class="anime-buttons">
-    <a onclick="toggleRating()" class="main_refreshIcon" >
+    <a onclick="toggleRating()" id="star_icon_toggle" class="main_refreshIcon" >
         <i class="fa-solid fa-star-half-stroke"></i>
     </a>
     <a onclick="setSeenAnimeValue(false)" class="main_refreshIcon">
