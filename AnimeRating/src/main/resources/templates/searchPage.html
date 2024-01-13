@@ -14,27 +14,35 @@
     <form th:action="@{/search_anime}" th:method="POST">
         <label>
             <p>Category</p>
-            <input type="checkbox" name="category" value="action">Action<br>
-            <input type="checkbox" name="category" value="adventure">Adventure<br>
-            <input type="checkbox" name="category" value="comedy">Comedy<br>
-            <input type="checkbox" name="category" value="drama">Drama<br>
-            <input type="checkbox" name="category" value="fantasy">Fantasy<br>
-            <input type="checkbox" name="category" value="horror">Horror<br>
+            <input type="checkbox" name="category" value="action" >Action<br>
+            <input type="checkbox" name="category" value="adventure" >Adventure<br>
+            <input type="checkbox" name="category" value="comedy" >Comedy<br>
+            <input type="checkbox" name="category" value="drama" >Drama<br>
+            <input type="checkbox" name="category" value="fantasy" >Fantasy<br>
+            <input type="checkbox" name="category" value="horror" >Horror<br>
+            <input type="hidden" name="category" value="default" required>
         </label>
         <button th:type="submit">Search Anime</button>
     </form>
 </div>
-<div th:unless="${searchedAnime.isEmpty()}" th:each="anime : ${searchedAnime}">
-    <p th:if="${anime.titleEng() != null}" th:text="${anime.titleEng()}">Loading..</p>
-    <img th:if="${anime.posterImage() != null}" th:src="${anime.posterImage}" alt="Poster Image">
-    <form th:action="@{/rate_anime}" th:method="POST">
-        <input type="hidden" th:value="${anime.posterImage()}" th:name="posterImage">
-        <input type="hidden" th:value="${anime.titleEng()}" th:name="titleEng">
-        <input type="hidden" th:value="${anime.titleJP()}" th:name="titleJP">
-        <input type="hidden" th:value="${anime.description()}" th:name="description">
-        <input type="hidden" th:value="${anime.episodes()}" th:name="episodes">
-        <button th:type="submit">rate</button>
-    </form>
+<div class="searchPage-Container">
+    <div class="searchPage-SearchedAnime" th:unless="${searchedAnime.isEmpty()}" th:each="anime : ${searchedAnime}">
+        <h2 th:if="${anime.titleEng() != null}" th:text="${anime.titleEng()}">Loading..</h2>
+        <img th:if="${anime.posterImage() != null}" th:src="${anime.posterImage}" alt="Poster Image" onclick="submitForm(this)">
+        <form th:action="@{/rate_anime}" th:method="POST" id="animeForm">
+            <input type="hidden" th:value="${anime.posterImage()}" th:name="posterImage">
+            <input type="hidden" th:value="${anime.titleEng()}" th:name="titleEng">
+            <input type="hidden" th:value="${anime.titleJP()}" th:name="titleJP">
+            <input type="hidden" th:value="${anime.description()}" th:name="description">
+            <input type="hidden" th:value="${anime.episodes()}" th:name="episodes">
+        </form>
+    </div>
 </div>
+<script>
+    function submitForm(clickedImage) {
+            const form = clickedImage.closest('div').querySelector('form');
+            form.submit();
+        }
+</script>
 </body>
 </html>

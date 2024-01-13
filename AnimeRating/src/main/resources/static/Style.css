@@ -51,7 +51,7 @@ body {
     text-align: center;
 }
 
-.header-search:focus{
+.header-search:focus {
     color: #a6aac4;
 }
 
@@ -137,7 +137,7 @@ button:hover {
     color: #ffffff;
 }
 
-.rating-title,.rating-stars{
+.rating-title, .rating-stars {
     display: inline-flex;
 }
 
@@ -170,7 +170,7 @@ button:hover {
     border-radius: 0.5rem;
 }
 
-.addMenu p{
+.addMenu p {
     color: #36393f;
 }
 
@@ -193,29 +193,33 @@ h1,
 h2 {
     color: #7289da;
 }
+
 p,
 button {
     color: #ffffff;
 }
-.userList-body button{
+
+.userList-body button {
     margin-left: 10px;
     font-size: 1rem;
 }
+
 a,
-.userList-body button{
+.userList-body button {
     color: #7289da;
     text-decoration: none;
     padding: 10px;
 }
 
 a:hover,
-.userList-body button{
+.userList-body button {
     color: #ffffff;
 }
 
 .hidden {
     display: none;
 }
+
 .topRated {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -234,7 +238,7 @@ a:hover,
     max-width: 240px;
 }
 
-.topAnimeItem:hover img{
+.topAnimeItem:hover img {
     background: black;
     opacity: 0.7;
 }
@@ -262,8 +266,7 @@ a:hover,
 }
 
 
-
-.userList-body,.profile-body {
+.userList-body {
     display: grid;
     grid-template-columns: 2fr;
     grid-template-rows: auto auto;
@@ -275,11 +278,12 @@ a:hover,
     padding: 20px;
     box-sizing: border-box;
 }
-.main_refreshIcon{
+
+.main_refreshIcon {
     font-size: 2rem;
 }
 
-.userList-container,.profile-container {
+.userList-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
@@ -287,7 +291,7 @@ a:hover,
 
 .userList-seenList,
 .userList-watchList,
-.userList-currentlyWatching{
+.userList-currentlyWatching {
     max-width: 700px;
 }
 
@@ -299,11 +303,11 @@ a:hover,
     padding: 20px;
 }
 
-.userList-currentlyWatching{
+.userList-currentlyWatching {
     background-color: #c5c5c5;
 }
 
-.userList-currentlyWatching td{
+.userList-currentlyWatching td {
     color: #36393f;
 }
 
@@ -371,17 +375,18 @@ td {
 }
 
 .loginPage form input:focus,
-.registerPage form input:focus{
+.registerPage form input:focus {
     color: white;
     border: none;
     background-color: rgba(37, 37, 37, 0.36);
 }
-.registerPage form button{
+
+.registerPage form button {
     margin-top: 20px;
 }
 
 .loginPage form button,
-.registerPage form button{
+.registerPage form button {
     background-color: #7289da;
     color: #ffffff;
     border: none;
@@ -391,7 +396,7 @@ td {
 }
 
 .loginPage form button:hover,
-.loginPage form button:hover{
+.loginPage form button:hover {
     background-color: #41538c;
 }
 
@@ -405,32 +410,40 @@ td {
 .loginPage a:hover {
     color: #ffffff;
 }
-.errorMessage{
+
+.errorMessage {
     margin-top: 20px;
     color: #d25e54;
     font-weight: bolder;
 }
+
 .topRated {
     display: flex;
 }
-.anime-buttons{
+
+.anime-buttons {
     cursor: pointer;
 }
-.userList-buttons{
+
+.userList-buttons {
     display: inline-flex;
 }
-.userList-body button{
+
+.userList-body button {
     border-radius: 100px;
     margin-bottom: 3px;
     width: 40px;
 }
-.userList-currentlyWatching p{
+
+.userList-currentlyWatching p {
     color: #42464d;
 }
-.userList-currentlyWatching button{
+
+.userList-currentlyWatching button {
     color: #c5c5c5;
 }
-.topRated-ratingNumber{
+
+.topRated-ratingNumber {
     color: #ffffff;
     font-size: 2rem;
     margin-top: 10px;
@@ -439,8 +452,59 @@ td {
     border-radius: 10px;
     padding: 15px;
 }
+
 .topRated-Anime {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+.searchPage-Container{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 20px;
+}
+.searchPage-Categories{
+    background-color: #42464d;
+}
+.searchPage-SearchedAnime {
+    position: relative;
+    overflow: hidden;
+}
+
+.searchPage-SearchedAnime {
+    position: relative;
+    overflow: hidden;
+}
+
+.searchPage-SearchedAnime img {
+    width: 270px;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+
+.searchPage-SearchedAnime:hover img {
+    transform: scale(1.3);
+    background-color: black;
+    opacity: 0.6;
+}
+
+.searchPage-SearchedAnime h2 {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    color: #ffffff;
+    font-size: 1.3rem;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.searchPage-SearchedAnime:hover h2 {
+    opacity: 1;
+}
+
+
+
