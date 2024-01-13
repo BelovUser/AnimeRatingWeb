@@ -5,14 +5,16 @@
 </head>
 <body>
 <div th:fragment="header">
-    <div class="header-SingAndLog">
-        <a th:href="@{/login}">log out</a>
-        <a th:href="@{/register}">Sing in</a>
-    </div>
-    <div class="page-title">
-        <a th:href="@{/}">
+    <div class="header-upperHeader">
+        <div class="page-title">
+            <a th:href="@{/}">
                 <img th:src="@{/Title_ani.rate.svg}" alt="Header img">
             </a>
+        </div>
+        <div class="header-SingAndLog">
+            <a th:href="@{/login}">log out</a>
+            <a th:href="@{/register}">Sing in</a>
+        </div>
     </div>
     <div class="page-header">
         <a th:href="@{/}"> rate random anime </a>

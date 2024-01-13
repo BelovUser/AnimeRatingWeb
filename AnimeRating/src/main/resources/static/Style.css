@@ -14,14 +14,6 @@ body {
     box-sizing: border-box;
 }
 
-.page-title {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 1;
-    max-width: 300px;
-}
-
 .page-header {
     grid-column-start: 1;
     grid-column-end: 2;
@@ -343,8 +335,8 @@ td {
 }
 
 .header-SingAndLog {
-    position: absolute;
     text-align: right;
+    margin-left: 1020px;
     top: 50px;
     right: 35px;
     padding: 1rem;
@@ -534,7 +526,13 @@ td {
     color: #7289da;
 }
 
-
+.header-upperHeader {
+    display: flex
+}
+.page-title{
+    margin-top: 0;
+    width: 260px;
+}
 
 
 
