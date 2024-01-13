@@ -459,14 +459,17 @@ td {
     align-items: center;
 }
 
-.searchPage-Container{
+.searchPage-Container {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
     gap: 20px;
 }
-.searchPage-Categories{
-    background-color: #42464d;
+
+.searchPage-Categories {
+    background-color: #7289da;
+    border-radius: 20px
 }
+
 .searchPage-SearchedAnime {
     position: relative;
     overflow: hidden;
@@ -505,6 +508,33 @@ td {
 .searchPage-SearchedAnime:hover h2 {
     opacity: 1;
 }
+
+.searchPage-Categories form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    justify-content: center;
+    margin: 10px;
+}
+
+.searchPage-Categories {
+    display: flex;
+    flex-direction: column;
+}
+
+.searchPage-Categories button {
+    padding: 10px;
+    background-color: #ffffff;
+    color: #7289da;
+}
+
+.searchPage-Categories button:hover {
+    padding: 10px;
+    background-color: #c5c5c5;
+    color: #7289da;
+}
+
+
 
 
 
