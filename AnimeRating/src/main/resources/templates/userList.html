@@ -20,7 +20,7 @@
             </tr>
             <tr th:each="anime : ${seenAnime}">
                 <td th:text="${anime.getTitleEn()}">Loading..</td>
-                <td th:text="${anime.getAverageRatting()} + '/10'">Loading..</td>
+                <td th:text="${anime.getAverageRating()} + '/10'">Loading..</td>
                 <td class="userList-icon">
                     <form th:action="@{/edit_anime_rating}" th:method="POST">
                     <button th:type="submit">

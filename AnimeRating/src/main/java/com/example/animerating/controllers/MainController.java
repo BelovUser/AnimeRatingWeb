@@ -1,8 +1,8 @@
 package com.example.animerating.controllers;
 
 import com.example.animerating.dtos.AnimeDataDTO;
-import com.example.animerating.dtos.AnimeRattingDTO;
-import com.example.animerating.dtos.KitsuAnimeDTO;
+import com.example.animerating.dtos.AnimeRatingDTO;
+import com.example.animerating.dtos.FetchedAnimeDataDTO;
 import com.example.animerating.models.Anime;
 import com.example.animerating.models.User;
 import com.example.animerating.services.AnimeService;
@@ -30,7 +30,7 @@ public class MainController {
     @GetMapping("/")
     public String getMainPage(Principal principal,Model model) {
         User user = getUser(principal);
-        KitsuAnimeDTO randomAnime = animeService.getRandomUniqueToUserAnime(user);
+        FetchedAnimeDataDTO randomAnime = animeService.getRandomUniqueToUserAnime(user);
         model.addAttribute("anime",randomAnime);
         return "main";
 
@@ -60,20 +60,20 @@ public class MainController {
     }
 
     @PostMapping("/edit_anime")
-    public String editAnime(AnimeRattingDTO animeRattingDTO){
-        animeService.editAnimeToUser(animeRattingDTO);
+    public String editAnime(AnimeRatingDTO animeRatingDTO){
+        animeService.editAnimeToUser(animeRatingDTO);
         return "redirect:/user_list";
     }
 
-    @GetMapping("/top_rated")
+    @GetMapping("/top_rated_anime")
     public String getTopRatedPage(Model model, Principal principal) {
-        List<Anime> topAnime = animeService.getTopTenAnime();
+        List<Anime> topAnime = animeService.getTopSixAnime();
         model.addAttribute("topAnime", topAnime);
         return "topRatedAnime";
     }
 
     @PostMapping("/add_watching_anime")
-    public String addToCurrentlyWatching(@RequestParam Long animeId, Principal principal) {
+    public String addAnimeToCurrentlyWatching(@RequestParam Long animeId, Principal principal) {
         User user = getUser(principal);
         animeService.changeAnimeStatus(user, animeId);
         return "redirect:/user_list";
@@ -87,13 +87,13 @@ public class MainController {
     }
 
     @PostMapping("/rate_anime")
-    public String rateAnimePage(@ModelAttribute AnimeDataDTO anime, Principal principal,Model model) {
+    public String rateAnime(@ModelAttribute AnimeDataDTO anime, Principal principal,Model model) {
         model.addAttribute("anime",anime);
         return "main";
     }
 
     @PostMapping("/edit_anime_rating")
-    public String editAnimePage(@RequestParam Long animeId, Principal principal,Model model) {
+    public String editAnimeRating(@RequestParam Long animeId, Principal principal,Model model) {
         User user = getUser(principal);
         Anime anime = animeService.getById(user,animeId);
         model.addAttribute("anime",anime);
@@ -106,9 +106,9 @@ public class MainController {
     }
 
     @PostMapping("/search_anime")
-    public String getSearchAnimePage(@RequestBody@RequestParam(value = "category", required = false) List<String> categories,
+    public String searchAnime(@RequestBody@RequestParam(value = "category", required = false) List<String> categories,
                                      Model model){
-            List<KitsuAnimeDTO> searchedAnime = animeService.getKitsuAnimeDTOByCategories(categories);
+            List<FetchedAnimeDataDTO> searchedAnime = animeService.getFetchedAnimeDTOByCategories(categories);
             model.addAttribute("searchedAnime", searchedAnime);
             return "searchPage";
     }

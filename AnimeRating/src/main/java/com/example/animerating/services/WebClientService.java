@@ -24,7 +24,7 @@ public class WebClientService {
                 .bodyToMono(String.class);
     }
 
-    public Mono<String> searchAnimeCategories(List<String> categories) {
+    public Mono<String> searchAnimeByCategories(List<String> categories) {
         return webClient.get()
                 .uri("/anime", uriBuilder -> uriBuilder
                         .queryParam("filter[categories]", categories.toArray())

@@ -1,8 +1,8 @@
 package com.example.animerating.services;
 
 import com.example.animerating.dtos.AnimeDataDTO;
-import com.example.animerating.dtos.AnimeRattingDTO;
-import com.example.animerating.dtos.KitsuAnimeDTO;
+import com.example.animerating.dtos.AnimeRatingDTO;
+import com.example.animerating.dtos.FetchedAnimeDataDTO;
 import com.example.animerating.models.Anime;
 import com.example.animerating.models.User;
 import com.example.animerating.repositories.AnimeRepository;
@@ -55,10 +55,10 @@ public class AnimeService {
         anime.setEpisodeCount(animeDataDTO.episodes());
         anime.setSynopsis(animeDataDTO.description());
         anime.setPosterUrl(animeDataDTO.posterImage());
-        anime.setAnimationRatting(animeDataDTO.getAnimationRatingAsInt());
-        anime.setArtStyleRatting(animeDataDTO.getArtStyleRatingAsInt());
-        anime.setCharactersRatting(animeDataDTO.getCharactersRatingAsInt());
-        anime.setStoryRatting(animeDataDTO.getStoryRatingAsInt());
+        anime.setAnimationRating(animeDataDTO.getAnimationRatingAsInt());
+        anime.setArtStyleRating(animeDataDTO.getArtStyleRatingAsInt());
+        anime.setCharactersRating(animeDataDTO.getCharactersRatingAsInt());
+        anime.setStoryRating(animeDataDTO.getStoryRatingAsInt());
 
         if (addToSeen.get().equals("true")) {
             anime.setSeen(true);
@@ -73,12 +73,12 @@ public class AnimeService {
         userService.save(user);
     }
 
-    public void editAnimeToUser(AnimeRattingDTO animeRattingDTO) {
-        Anime anime = animeRepository.findById(animeRattingDTO.animeId()).get();
-        anime.setAnimationRatting(animeRattingDTO.getAnimationRatingAsInt());
-        anime.setArtStyleRatting(animeRattingDTO.getArtStyleRatingAsInt());
-        anime.setCharactersRatting(animeRattingDTO.getCharactersRatingAsInt());
-        anime.setStoryRatting(animeRattingDTO.getStoryRatingAsInt());
+    public void editAnimeToUser(AnimeRatingDTO animeRatingDTO) {
+        Anime anime = animeRepository.findById(animeRatingDTO.animeId()).get();
+        anime.setAnimationRating(animeRatingDTO.getAnimationRatingAsInt());
+        anime.setArtStyleRating(animeRatingDTO.getArtStyleRatingAsInt());
+        anime.setCharactersRating(animeRatingDTO.getCharactersRatingAsInt());
+        anime.setStoryRating(animeRatingDTO.getStoryRatingAsInt());
         anime.setSeen(true);
         anime.setCurrentlyWatching(false);
 
@@ -91,14 +91,14 @@ public class AnimeService {
                 .sum();
     }
 
-    public List<Anime> getTopTenAnime() {
-        return animeRepository.findTop6ByOrderByAverageRattingDesc().stream()
+    public List<Anime> getTopSixAnime() {
+        return animeRepository.findTop6ByOrderByAverageRatingDesc().stream()
                 .filter(Anime::getSeen)
                 .toList();
     }
 
     public Anime getFavoriteAnime() {
-        return animeRepository.findFirstByOrderByAverageRattingDesc().orElse(null);
+        return animeRepository.findFirstByOrderByAverageRatingDesc().orElse(null);
     }
 
     public List<Anime> getSeenAnime(User user) {
@@ -112,13 +112,6 @@ public class AnimeService {
                 .filter(a -> !a.getSeen())
                 .filter(a -> !a.getCurrentlyWatching())
                 .toList();
-    }
-
-    public Anime getByJpTitle(String titleJp) {
-        if (animeRepository.findByTitleJp(titleJp).isEmpty()) {
-            throw new RuntimeException("Could not found an Anime with" + titleJp + " title.");
-        }
-        return animeRepository.findByTitleJp(titleJp).get();
     }
 
     public Anime getById(User user, Long animeId) {
@@ -151,15 +144,15 @@ public class AnimeService {
         return animeRepository.findAllByCurrentlyWatchingTrue();
     }
 
-    public KitsuAnimeDTO getRandomUniqueToUserAnime(User user) {
+    public FetchedAnimeDataDTO getRandomUniqueToUserAnime(User user) {
         List<String> titlesJpOwnedByUser = user.getAnime().stream()
                 .map(Anime::getTitleJp)
                 .toList();
 
-        KitsuAnimeDTO randomAnime;
+        FetchedAnimeDataDTO randomAnime;
         do {
             try {
-                randomAnime = getRandomKitsuAnimeDTO();
+                randomAnime = getRandomFetchedAnimeDTO();
             } catch (WebClientResponseException.NotFound ex) {
                 randomAnime = null;
                 break;
@@ -169,20 +162,20 @@ public class AnimeService {
         return randomAnime;
     }
 
-    public KitsuAnimeDTO getRandomKitsuAnimeDTO() {
+    public FetchedAnimeDataDTO getRandomFetchedAnimeDTO() {
         Mono<String> fetchedData = webClientService.fetchDataById(new Random().nextInt(300));
         return fetchedData
-                .map(r -> convertJsonToKitsuAnimeDTOForRandom(r))
+                .map(r -> convertJsonForRandomAnime(r))
                 .block();
     }
 
-    private List<KitsuAnimeDTO> convertJsonArrayToKitsuAnimeDTOList(String jsonString) {
+    private List<FetchedAnimeDataDTO> convertJsonArrayToFetchedAnimeDTOList(String jsonString) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonArray = objectMapper.readTree(jsonString).path("data");
 
             return StreamSupport.stream(jsonArray.spliterator(), false)
-                    .map(data -> convertJsonToKitsuAnimeDTO(data.toString()))
+                    .map(data -> convertJson(data.toString()))
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
         } catch (JsonProcessingException e) {
@@ -191,26 +184,22 @@ public class AnimeService {
         }
     }
 
-    public List<KitsuAnimeDTO> getKitsuAnimeDTOByCategories(List<String> animeCategories) {
+    public List<FetchedAnimeDataDTO> getFetchedAnimeDTOByCategories(List<String> animeCategories) {
         String joinedCategories = String.join(",", animeCategories);
-        Mono<String> fetchedData = webClientService.searchAnimeCategories(List.of(joinedCategories));
-
-        System.out.println(fetchedData
-                .map(r -> convertJsonArrayToKitsuAnimeDTOList(r))
-                .block());
+        Mono<String> fetchedData = webClientService.searchAnimeByCategories(List.of(joinedCategories));
 
         return fetchedData
-                .map(r -> convertJsonArrayToKitsuAnimeDTOList(r))
+                .map(r -> convertJsonArrayToFetchedAnimeDTOList(r))
                 .block();
     }
 
-    private KitsuAnimeDTO convertJsonToKitsuAnimeDTOForRandom(String json){
+    private FetchedAnimeDataDTO convertJsonForRandomAnime(String json){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonNode = objectMapper.readTree(json);
             JsonNode attributes = jsonNode.path("data").path("attributes");
 
-            return new KitsuAnimeDTO(
+            return new FetchedAnimeDataDTO(
                     attributes.path("titles").path("en").asText("Unknown"),
                     attributes.path("titles").path("ja_jp").asText("Unknown"),
                     attributes.path("startDate").asText("Unknown"),
@@ -226,13 +215,13 @@ public class AnimeService {
 
 
 
-    private KitsuAnimeDTO convertJsonToKitsuAnimeDTO(String json) {
+    private FetchedAnimeDataDTO convertJson(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonNode = objectMapper.readTree(json);
             JsonNode attributes = jsonNode.path("attributes");
 
-            return new KitsuAnimeDTO(
+            return new FetchedAnimeDataDTO(
                     attributes.path("titles").path("en").asText("Unknown"),
                     attributes.path("titles").path("ja_jp").asText("Unknown"),
                     attributes.path("startDate").asText("Unknown"),

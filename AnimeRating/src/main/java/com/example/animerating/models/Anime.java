@@ -22,11 +22,11 @@ public class Anime {
     private String synopsis;
     private String episodeCount;
     private String posterUrl;
-    private Integer artStyleRatting;
-    private Integer animationRatting;
-    private Integer charactersRatting;
-    private Integer storyRatting;
-    private Double averageRatting;
+    private Integer artStyleRating;
+    private Integer animationRating;
+    private Integer charactersRating;
+    private Integer storyRating;
+    private Double averageRating;
     private Boolean currentlyWatching = false;
 
     public Boolean getCurrentlyWatching() {
@@ -37,57 +37,57 @@ public class Anime {
         this.currentlyWatching = currentlyWatching;
     }
 
-    public Double getAverageRatting() {
-        List<Integer> animeRattings = Arrays.asList(
-                Objects.requireNonNullElse(animationRatting, 0),
-                Objects.requireNonNullElse(artStyleRatting, 0),
-                Objects.requireNonNullElse(storyRatting, 0),
-                Objects.requireNonNullElse(charactersRatting, 0)
+    public Double getAverageRating() {
+        List<Integer> animeRatings = Arrays.asList(
+                Objects.requireNonNullElse(animationRating, 0),
+                Objects.requireNonNullElse(artStyleRating, 0),
+                Objects.requireNonNullElse(storyRating, 0),
+                Objects.requireNonNullElse(charactersRating, 0)
         );
 
-        System.out.println("Ratings: " + animeRattings);
+        System.out.println("Ratings: " + animeRatings);
 
 
-        return animeRattings.stream()
+        return animeRatings.stream()
                 .mapToInt(Integer::intValue)
                 .average()
                 .orElse(Double.NaN);
     }
 
-    public void setAverageRatting(Double averageRatting) {
-        this.averageRatting = averageRatting;
+    public void setAverageRating(Double averageRatting) {
+        this.averageRating = averageRatting;
     }
 
-    public Integer getArtStyleRatting() {
-        return artStyleRatting;
+    public Integer getArtStyleRating() {
+        return artStyleRating;
     }
 
-    public void setArtStyleRatting(Integer artStyleRatting) {
-        this.artStyleRatting = artStyleRatting;
+    public void setArtStyleRating(Integer artStyleRatting) {
+        this.artStyleRating = artStyleRatting;
     }
 
-    public Integer getAnimationRatting() {
-        return animationRatting;
+    public Integer getAnimationRating() {
+        return animationRating;
     }
 
-    public void setAnimationRatting(Integer animationRatting) {
-        this.animationRatting = animationRatting;
+    public void setAnimationRating(Integer animationRatting) {
+        this.animationRating = animationRatting;
     }
 
-    public Integer getCharactersRatting() {
-        return charactersRatting;
+    public Integer getCharactersRating() {
+        return charactersRating;
     }
 
-    public void setCharactersRatting(Integer charactersRatting) {
-        this.charactersRatting = charactersRatting;
+    public void setCharactersRating(Integer charactersRatting) {
+        this.charactersRating = charactersRatting;
     }
 
-    public Integer getStoryRatting() {
-        return storyRatting;
+    public Integer getStoryRating() {
+        return storyRating;
     }
 
-    public void setStoryRatting(Integer storyRatting) {
-        this.storyRatting = storyRatting;
+    public void setStoryRating(Integer storyRatting) {
+        this.storyRating = storyRatting;
     }
 
     public String getPosterUrl() {

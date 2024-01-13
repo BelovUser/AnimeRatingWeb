@@ -1,16 +1,10 @@
 package com.example.animerating.dtos;
 
-public record AnimeDataDTO(String titleEng,
-                           String titleJP,
-                           String releaseDate,
-                           String episodes,
-                           String description,
-                           String posterImage,
-                           String artStyleRating,
-                           String animationRating,
-                           String storyRating,
-                           String charactersRating,
-                           Long id) {
+public record AnimeRatingDTO(String artStyleRating,
+                             String animationRating,
+                             String storyRating,
+                             String charactersRating,
+                             Long animeId) {
     public Integer getArtStyleRatingAsInt() {
         return convertToInt(artStyleRating);
     }
