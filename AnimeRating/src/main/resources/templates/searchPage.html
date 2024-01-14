@@ -12,68 +12,68 @@
 <div th:replace="/headerFragment :: header"></div>
 <div class="searchPage-Categories">
     <form th:action="@{/search_anime}" th:method="POST">
-        <label>
+        <label id="category_action">
             <input type="checkbox" name="category" value="action"> Action
         </label>
-        <label>
+        <label id="category_adventure">
             <input type="checkbox" name="category" value="adventure"> Adventure
         </label>
-        <label>
+        <label id="category_comedy">
             <input type="checkbox" name="category" value="comedy"> Comedy
         </label>
-        <label>
+        <label id="category_drama">
             <input type="checkbox" name="category" value="drama"> Drama
         </label>
-        <label>
+        <label id="category_fantasy">
             <input type="checkbox" name="category" value="fantasy"> Fantasy
         </label>
-        <label>
+        <label id="category_horror">
             <input type="checkbox" name="category" value="horror"> Horror
         </label>
-        <label>
+        <label id="category_slice_of_life">
             <input type="checkbox" name="category" value="slice_of_life"> Slice of Life
         </label>
-        <label>
+        <label id="category_romance">
             <input type="checkbox" name="category" value="romance"> Romance
         </label>
-        <label>
+        <label id="category_mystery">
             <input type="checkbox" name="category" value="mystery"> Mystery
         </label>
-        <label>
+        <label id="category_thriller">
             <input type="checkbox" name="category" value="thriller"> Thriller
         </label>
-        <label>
+        <label id="category_sci_fi">
             <input type="checkbox" name="category" value="sci_fi"> Sci-Fi
         </label>
-        <label>
+        <label id="category_magic">
             <input type="checkbox" name="category" value="magic"> Magic
         </label>
-        <label>
+        <label id="category_sports">
             <input type="checkbox" name="category" value="sports"> Sports
         </label>
-        <label>
+        <label id="category_super_power">
             <input type="checkbox" name="category" value="super_power"> Super Power
         </label>
-        <label>
+        <label id="category_music">
             <input type="checkbox" name="category" value="music"> Music
         </label>
-        <label>
+        <label id="category_school">
             <input type="checkbox" name="category" value="school"> School
         </label>
-        <label>
+        <label id="category_psychological">
             <input type="checkbox" name="category" value="psychological"> Psychological
         </label>
-        <label>
+        <label id="category_mecha">
             <input type="checkbox" name="category" value="mecha"> Mecha
         </label>
-        <label>
+        <label id="category_shoujo">
             <input type="checkbox" name="category" value="shoujo"> Shoujo
         </label>
-        <label>
+        <label id="category_shounen">
             <input type="checkbox" name="category" value="shounen"> Shounen
         </label>
         <input type="hidden" name="category" value="default" required>
-        <button th:type="submit">
+        <button th:type="submit" id="search-input">
             Search Anime
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -82,8 +82,7 @@
 <div class="searchPage-Container">
     <div class="searchPage-SearchedAnime" th:unless="${searchedAnime.isEmpty()}" th:each="anime : ${searchedAnime}">
         <h2 th:if="${anime.titleEng() != null}" th:text="${anime.titleEng()}">Loading..</h2>
-        <img th:if="${anime.posterImage() != null}" th:src="${anime.posterImage}" alt="Poster Image"
-             onclick="submitForm(this)">
+        <img th:if="${anime.posterImage() != null}" th:src="${anime.posterImage}" alt="Poster Image" onclick="submitForm(this)" id="anime_poster">
         <form th:action="@{/rate_anime}" th:method="POST" id="animeForm">
             <input type="hidden" th:value="${anime.posterImage()}" th:name="posterImage">
             <input type="hidden" th:value="${anime.titleEng()}" th:name="titleEng">

@@ -23,7 +23,7 @@
                 <td th:text="${anime.getAverageRating()} + '/10'">Loading..</td>
                 <td class="userList-icon">
                     <form th:action="@{/edit_anime_rating}" th:method="POST">
-                    <button th:type="submit">
+                    <button th:type="submit" id="edit_anime_rating">
                         <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
                         <i class="fa-sharp fa-regular fa-pen-to-square"></i>
                     </button>
@@ -45,7 +45,7 @@
                 <td th:text="'Episodes: ' + ${anime.getEpisodeCount()}">Loading..</td>
                 <td class="userList-icon">
                     <form th:action="@{/edit_anime_rating}" th:method="POST">
-                        <button th:type="submit">
+                        <button th:type="submit" id="rate_watching_anime">
                             <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
                             <i class="fa-sharp fa-solid fa-star"></i>
                         </button>
@@ -68,13 +68,13 @@
                     <div class="userList-buttons">
                         <form th:action="@{/add_watching_anime}" th:method="POST">
                             <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
-                            <button th:type="submit">
+                            <button th:type="submit" id="add_to_watching_anime">
                                 <i class="fa-sharp fa-solid fa-eye"></i>
                             </button>
                         </form>
-                        <form th:action="@{/delete_anime}" th:method="DELETE">
+                        <form th:action="@{/delete_anime}" th:method="post">
                             <input type="hidden" th:name="animeId" th:value="${anime.getId()}"/>
-                            <button th:type="submit">
+                            <button th:type="submit" id="delete_anime">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </form>

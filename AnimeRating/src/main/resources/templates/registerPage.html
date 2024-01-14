@@ -22,7 +22,7 @@
         <button type="submit">Create account</button>
         <a th:href="@{/login}">Already have account?</a>
         <div class="errorMessage">
-            <p th:if="${userExists} == true " th:text="User with this username exists"></p>
+            <p th:if="${userExists}" th:text="User with this username exists"></p>
         </div>
     </form>
 </div>

@@ -79,7 +79,7 @@ public class MainController {
         return "redirect:/user_list";
     }
 
-    @DeleteMapping("/delete_anime")
+    @PostMapping("/delete_anime")
     public String deleteAnime(@RequestParam Long animeId, Principal principal) {
         User user = getUser(principal);
         animeService.deleteAnime(user, animeId);
