@@ -18,7 +18,7 @@ public class TestingProjectSeperatly {
     private TestingAction actions;
 
     @Value("${app.url}")
-    private static String webUrl;
+    private String webUrl;
     private static Browser browser;
     private static Page page;
 
