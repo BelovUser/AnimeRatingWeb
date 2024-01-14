@@ -1,4 +1,4 @@
-package com.example.animerating.e2e;
+package com.example.animerating.e2e.tests;
 
 import com.example.animerating.e2e.preparedActions.TestingAction;
 import com.microsoft.playwright.*;
@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
-
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ComponentScan(basePackages = "com.example.animerating.e2e.preparedActions")
-public class TestingProjectSeperatly {
+public class TestingProjectWhole {
 
     @Autowired
     private TestingAction actions;
@@ -22,8 +21,8 @@ public class TestingProjectSeperatly {
     private static Browser browser;
     private static Page page;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUp() {
         try {
             browser = Playwright.create().chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
             BrowserContext context = browser.newContext();
@@ -33,8 +32,8 @@ public class TestingProjectSeperatly {
         }
     }
 
-    @AfterEach
-    public void tearDown() {
+    @AfterAll
+    public static void tearDown() {
         if (browser != null) {
             browser.close();
         }
@@ -68,7 +67,6 @@ public class TestingProjectSeperatly {
     @Test
     @Order(2)
     public void UserListFunctionalityTest() {
-        MainPageFunctionalityTest();
         //At saved anime to currentlyWatching list
         page.navigate(webUrl + "/user_list");
         page.click("#add_to_watching_anime");
@@ -96,7 +94,6 @@ public class TestingProjectSeperatly {
     @Test
     @Order(3)
     public void CategorySearchingFunctionalityTest() {
-        actions.RegisterAndLogin(page, webUrl);
         //Search Anime by category
         page.navigate(webUrl + "/anime_categories");
         page.click("#category_adventure");
