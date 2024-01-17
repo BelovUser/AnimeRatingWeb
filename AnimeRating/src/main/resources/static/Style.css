@@ -529,9 +529,23 @@ td {
 .header-upperHeader {
     display: flex
 }
-.page-title{
+
+.page-title {
     margin-top: 0;
     width: 260px;
+}
+
+.topRated-Placeholder {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.topRated-Placeholder img {
+    max-width: 500px
+}
+.topRated-Placeholder p {
+    color: #7289da;
+    text-align: center;
 }
 
 
