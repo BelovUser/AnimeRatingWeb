@@ -4,7 +4,7 @@ body {
     grid-template-rows: auto auto auto auto;
     grid-gap: 20px;
     background-color: #36393f;
-    background-image: url("AniRate_background.svg");
+    background-image: url("images/AniRate_background.svg");
     background-repeat: no-repeat;
     background-size: cover;
     color: #ffffff;
