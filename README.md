@@ -12,33 +12,34 @@ As a Ani.Rate user you can rate anime you have already watched or you can save n
 
 #
 
-![Main page](/Images/Main_Page.png)
-![Rating](/Images/Rating_View.png)
 
 ### Rating Random Anime
 
 
-After you sucsefuly register and login Ani.Rate main page will welcome you with an Random anime that you can already start ratting.
-
-![UserList page](/Images/UserList_Page.png)
+After you successfully register and login Ani.Rate main page will welcome you with an Random anime that you can already start ratting.
+![Main page](/Images/Main_Page.png)
+![Rating](/Images/Rating_View.png)
+#
 
 ### Anime List
 
 In your header you can navigate yourself to your own anime list where you can see all you rated / saved anime or you can track which anime you are currently watching for the saved list!
+![UserList page](/Images/UserList_Page.png)
+#
 
 ### Searching by category
 
-![Searching page](/Images/Search_Page.png)
-
 If you are not a fan of rating random generated anime, you can use search by category page, where you can with ease find anime by your chosed category.
+![Searching page](/Images/Search_Page.png)
+#
 
 ### Top Rated Anime
-
-![TopRated page](/Images/TopRated_Page.png)
 
 For last, but not least you can see the top 6 anime from all user so you can, always know what show you can 100% recomend to your norime friend, that haven't seen nothing yet ;).
 # Project Endpoints
 * The Back-end connects with the frontend through  Thymeleaf library, so my controllers neither send or fetch JSONs.
+![TopRated page](/Images/TopRated_Page.png)
+#
 
 ###### Q:
 *Why did you decided to use Thymeleaf for this project?*
