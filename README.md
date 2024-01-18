@@ -16,7 +16,7 @@ As a Ani.Rate user you can rate anime you have already watched or you can save n
 ### Rating Random Anime
 
 
-After you successfully register and login Ani.Rate main page will welcome you with an Random anime that you can already start ratting.
+After you successfully register and login to Ani.Rate main page will welcome you with an Random anime that you can already start ratting.
 ![Main page](/Images/Main_Page.png)
 ![Rating](/Images/Rating_View.png)
 #
