@@ -36,10 +36,11 @@ If you are not a fan of rating random generated anime, you can use search by cat
 ### Top Rated Anime
 
 For last, but not least you can see the top 6 anime from all user so you can, always know what show you can 100% recomend to your norime friend, that haven't seen nothing yet ;).
-# Project Endpoints
-* The Back-end connects with the frontend through  Thymeleaf library, so my controllers neither send or fetch JSONs.
 ![TopRated page](/Images/TopRated_Page.png)
 #
+
+# Project Endpoints
+* The Back-end connects with the frontend through  Thymeleaf library, so my controllers neither send or fetch JSONs.
 
 ###### Q:
 *Why did you decided to use Thymeleaf for this project?*
