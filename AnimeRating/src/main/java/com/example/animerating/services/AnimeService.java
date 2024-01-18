@@ -163,9 +163,11 @@ public class AnimeService {
     }
 
     public FetchedAnimeDataDTO getRandomFetchedAnimeDTO() {
-        Mono<String> fetchedData = webClientService.fetchDataById(new Random().nextInt(100));
+        Mono<String> fetchedData = webClientService.fetchDataById(new Random().nextInt(300));
         return fetchedData
                 .map(r -> convertJsonForRandomAnime(r))
+                .onErrorResume(t -> Mono.empty())
+                .retry()
                 .block();
     }
 
