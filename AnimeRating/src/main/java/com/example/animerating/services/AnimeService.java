@@ -169,7 +169,7 @@ public class AnimeService {
                 .block();
     }
 
-    private List<FetchedAnimeDataDTO> convertJsonArrayToFetchedAnimeDTOList(String jsonString) {
+    public List<FetchedAnimeDataDTO> convertJsonArrayToFetchedAnimeDTOList(String jsonString) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonArray = objectMapper.readTree(jsonString).path("data");
