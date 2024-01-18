@@ -1,6 +1,6 @@
 
 
-![Logo](static/images/Title_ani.rate.svg)
+![Logo](/Images/Logo.png)
 
 # Ani.Rate
 
@@ -14,12 +14,13 @@ As a Ani.Rate user you can rate anime you have already watched or you can save n
 
 ### Rating Random Anime
 
-![Main page](static/images/Title_ani.rate.svg)
+![Main page](/Images/Main_Page.png)
+![Rating](/Images/Rating_View.png)
 
 
 After you sucsefuly register and login Ani.Rate main page will welcome you with an Random anime that you can already start ratting.
 
-![UserList page](static/images/Title_ani.rate.svg)
+![UserList page](/Images/UserList_Page.png)
 
 ### Anime List
 
@@ -27,13 +28,13 @@ In your header you can navigate yourself to your own anime list where you can se
 
 ### Searching by category
 
-![UserList page](static/images/Title_ani.rate.svg)
+![Searching page](/Images/Search_Page.png)
 
 If you are not a fan of rating random generated anime, you can use search by category page, where you can with ease find anime by your chosed category.
 
 ### Top Rated Anime
 
-![UserList page](static/images/Title_ani.rate.svg)
+![TopRated page](/Images/TopRated_Page.png)
 
 For last, but not least you can see the top 6 anime from all user so you can, always know what show you can 100% recomend to your norime friend, that haven't seen nothing yet ;).
 # Project Endpoints
