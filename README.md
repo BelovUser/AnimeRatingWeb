@@ -4,11 +4,11 @@
 
 # Ani.Rate
 
-Ani.Rate is a personal fullStack web project for rating anime using __SpringBoot,Thymeleaf and thirdParty API__ from [Kitsu]( https://kitsu.docs.apiary.io/ ).
+Ani.Rate is a personal full stack web project for rating anime using __SpringBoot,Thymeleaf,MySQL and thirdParty API__ from [Kitsu]( https://kitsu.docs.apiary.io/ ).
 
-As a Ani.Rate user you can rate anime you have already watched or you can save new series to you "Want to watch list"
+As an Ani.Rate user you can rate anime that you have already watched or you could just save new series that you haven't seen to your "Want to watch list". 
 
-*From Code to the logo, all what is in this repo is made by me :).*
+*From Code to the UI and graphics, all what is in this repo is made by me :).*
 
 #
 
