@@ -167,12 +167,36 @@ For last, but not least you can see the top 6 anime from all user so you can, al
 | `List<String>` | `categories` | **Required**.  User authentication information. |
 | `model` | `Model` | **Required**.   Spring framework model for view data. |
 
+#### Register Page
+
+```http
+  GET /register
+```
+*No parameters needed!*
+
+#### Login Page
+
+```http
+  GET /login
+```
+*No parameters needed!*
+
+#### User Registration
+
+```http
+  POST /register
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `RegisterDTO` | `registerDTO` | **Required**.  User for registration data |
+| `RedirectAttributes` | `ra` | **Required**.   For data redirection |
 
 # Third Party API
 To easily and comfortly fetch Data form [Kitsu]( https://kitsu.docs.apiary.io/ ) API I used **WebClient** in my WebClientService and then I'm converting the fetch JSON string to FetchedAnimeDataDTO in my AnimeService class.
 
 ### Fetching Anime By id
-*The this method input is random int, so I can fetch random Anime.*
+*The id input is random generated int. Thats how my project fetch random Anime.*
 
 ```java
 public Mono<String> fetchDataById(int id) {
@@ -218,7 +242,7 @@ private FetchedAnimeDataDTO convertJson(String json) {
 ```
 # Security
 
-My security is bit simple. I just needed to hash passwords for new  registed new Users and allow only the login page ( with css and images ) to not authentificated user. The spring security then use **Principal** to get the currect user ( using coockies ). Bcs my project dose not have any other role then User there is no need for specific authorization.
+My security is bit simple. I just needed to hash passwords for new registered users and allow the not registred to see only the login page ( with css and images ). The spring security uses **Principal** to authenticated the currect user ( by using coockies ). My project does not have any other role then the User role and thats why there is no need for specific authorization.
 
 ### SecurityFilterChain
 
